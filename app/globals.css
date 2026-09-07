@@ -1,0 +1,322 @@
+/* Self-hosted fonts — no third-party request, no layout shift, no build-time fetch.
+   Only the axes we actually use are pulled in. */
+@import '@fontsource-variable/cormorant-garamond/wght.css';
+@import '@fontsource-variable/cormorant-garamond/wght-italic.css';
+@import '@fontsource-variable/jost/wght.css';
+@import '@fontsource/parisienne/latin-400.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: 'Cormorant Garamond Variable';
+    --font-sans: 'Jost Variable';
+    --font-script: 'Parisienne';
+
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur-fast: 240ms;
+    --dur-base: 520ms;
+    --dur-slow: 620ms;
+
+    --nav-h: 76px;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    /* Native scrolling. No scroll hijacking library — see components/ui/Reveal.tsx. */
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-h) + 1rem);
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: theme('colors.blush.300');
+    color: theme('colors.wine.700');
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid theme('colors.rose.600');
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+/* ==========================================================================
+   MOTION SYSTEM
+   --------------------------------------------------------------------------
+   Everything here is CSS. There is no animation library and no React state
+   gating visibility.
+
+   The contract: content is VISIBLE BY DEFAULT. Elements only start hidden once
+   `html.js` is present, which the inline reveal engine in app/layout.tsx adds
+   synchronously in <head> — before first paint, and only after confirming it
+   can actually run. If that script is blocked, errors, throttled, or the user
+   prefers reduced motion, every element simply renders. Nothing can get stuck
+   invisible waiting for JavaScript.
+   ========================================================================== */
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-gutter;
+  }
+
+  .label {
+    @apply font-sans text-label uppercase tracking-[0.22em] text-rose-600;
+  }
+
+  /* ---- Reveal: fade + rise ---- */
+  .reveal {
+    transition:
+      opacity var(--dur-slow) var(--ease-expo),
+      transform var(--dur-slow) var(--ease-expo);
+  }
+  html.js .reveal:not(.is-in) {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+
+  /* ---- Reveal: image uncovers itself ---- */
+  .reveal-clip {
+    transition: clip-path 760ms var(--ease-expo);
+  }
+  .reveal-clip > * {
+    transition: transform 1000ms var(--ease-expo);
+  }
+  html.js .reveal-clip:not(.is-in) {
+    clip-path: inset(0 0 100% 0);
+  }
+  html.js .reveal-clip:not(.is-in) > * {
+    transform: scale(1.1);
+  }
+
+  /* ---- Reveal: word-by-word, masked ---- */
+  .reveal-words > .rw {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.08em;
+  }
+  .reveal-words > .rw > span {
+    display: inline-block;
+    transition: transform 700ms var(--ease-expo);
+  }
+  html.js .reveal-words:not(.is-in) > .rw > span {
+    transform: translate3d(0, 108%, 0);
+  }
+
+  /* ---- Page entry ---- */
+  html.js .page-in {
+    animation: page-in 520ms var(--ease-expo) both;
+  }
+
+  /* ---- Overlay entry/exit (mobile menu, search) ---- */
+  .overlay-enter {
+    animation: overlay-in 380ms var(--ease-expo) both;
+  }
+  .overlay-exit {
+    animation: overlay-out 260ms var(--ease-expo) both;
+  }
+  .curtain-enter {
+    animation: curtain-in 560ms var(--ease-expo) both;
+  }
+  .curtain-exit {
+    animation: curtain-out 420ms var(--ease-expo) both;
+  }
+  .sheet-enter {
+    animation: sheet-in 460ms var(--ease-expo) both;
+  }
+  .sheet-exit {
+    animation: sheet-out 240ms var(--ease-expo) both;
+  }
+  .rise-in {
+    animation: rise-in 520ms var(--ease-expo) both;
+  }
+  .fade-in {
+    animation: fade-in 360ms var(--ease-expo) both;
+  }
+  .pop-in {
+    animation: pop-in 340ms var(--ease-expo) both;
+  }
+
+  /* ---- Collapsible without measuring heights ---- */
+  .collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 420ms var(--ease-expo);
+  }
+  .collapse[data-open='true'] {
+    grid-template-rows: 1fr;
+  }
+  .collapse > * {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  /* ---- Crossfade stack (product gallery, theme preview) ---- */
+  .xfade {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 600ms var(--ease-expo);
+  }
+  .xfade[data-active='true'] {
+    opacity: 1;
+  }
+
+  .rule {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-blush-300 to-transparent;
+  }
+
+  .link-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--dur-base) var(--ease-expo);
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .paper {
+    background-image:
+      radial-gradient(120% 90% at 10% 0%, rgba(253, 241, 245, 0.9) 0%, rgba(255, 252, 250, 0) 60%),
+      radial-gradient(90% 70% at 100% 10%, rgba(238, 220, 184, 0.28) 0%, rgba(255, 252, 250, 0) 55%);
+  }
+
+  .card-hover {
+    transition:
+      transform var(--dur-base) var(--ease-expo),
+      box-shadow var(--dur-base) var(--ease-expo);
+  }
+  .card-hover:hover {
+    transform: translate3d(0, -6px, 0);
+  }
+
+  .mask-fade-r {
+    -webkit-mask-image: linear-gradient(to right, #000 84%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 84%, transparent 100%);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .gpu {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  /* Rails: horizontal wheel/touch stays inside, page scroll is never trapped. */
+  .rail {
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translate3d(0, 8px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes curtain-in {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0% 0); }
+}
+@keyframes curtain-out {
+  from { clip-path: inset(0 0 0% 0); }
+  to { clip-path: inset(0 0 100% 0); }
+}
+@keyframes sheet-in {
+  from { opacity: 0; transform: translate3d(0, -20px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sheet-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translate3d(0, -14px, 0); }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translate3d(0, 22px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -10px, 0); }
+}
+
+/* Reduced motion: the reveal engine never adds `html.js`, so nothing is hidden.
+   These rules stop everything else from moving. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
