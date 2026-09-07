@@ -2,7 +2,10 @@
   "name": "gifts-by-laraib",
   "version": "1.0.0",
   "private": true,
-  "description": "Gifts by Laraib — customized gift baskets. Premium brand site.",
+  "description": "Gifts by Laraib \u2014 customized gift baskets. Premium brand site.",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -20,7 +20,7 @@ npm start          # serve the production build
 npm run typecheck  # tsc --noEmit
 ```
 
-Node 18.18+ (20+ recommended).
+Node 20.9+ (pinned in `engines`).
 
 ### Please read this before judging the speed
 
@@ -88,7 +88,9 @@ instagram: { handle: '@giftsbylaraib', url: '...' },  // ← REPLACE
 facebook: '...',                     // ← REPLACE
 ```
 
-Set the live domain via an environment variable (used for canonical URLs, Open Graph, sitemap):
+Set the live domain via an environment variable (used for canonical URLs, Open
+Graph, sitemap). Set it to a real value or omit the key — see **Deploying** for
+why a blank value used to break the build.
 
 ```bash
 # .env.local
@@ -308,6 +310,37 @@ Defined once in `tailwind.config.ts`:
 
 ## Deploying
 
-Push to a Git repo and import it on Vercel. Set `NEXT_PUBLIC_SITE_URL` in project environment variables. Everything is statically prerendered; no runtime environment is required beyond that.
+Push to a Git repo and import it on Vercel. Everything is statically prerendered;
+no runtime environment is required.
 
-Any Node host works too: `npm run build && npm start`.
+### Environment variables
+
+Only one matters: `NEXT_PUBLIC_SITE_URL`, used for canonical links, Open Graph
+tags, the sitemap and structured data.
+
+Set it to your real domain — or **leave the key out entirely**. What you must not
+do is add the key with a blank value. An empty string is a value, and
+`process.env.X ?? fallback` does not catch it, which is why an earlier version of
+this project failed its Vercel build with:
+
+```
+TypeError: Invalid URL … input: ''
+    at metadataBase: new URL(site.url)
+```
+
+`resolveSiteUrl()` in `lib/site.ts` now validates every candidate and falls
+through, so the build survives an empty value, whitespace, a missing protocol, a
+trailing slash, or outright nonsense. Resolution order:
+
+1. `NEXT_PUBLIC_SITE_URL`
+2. `NEXT_PUBLIC_VERCEL_URL` — set automatically on Vercel, so preview deployments
+   get their own correct canonical URLs
+3. the `FALLBACK_URL` constant at the top of `lib/site.ts`
+
+A bare domain is accepted (`https://` is added) and trailing slashes are trimmed.
+Only `NEXT_PUBLIC_*` variables are read, so the server and browser always agree
+and no rendered URL can cause a hydration mismatch.
+
+Node 20.9+ is required (pinned in `engines`).
+
+Any Node host works: `npm run build && npm start`.

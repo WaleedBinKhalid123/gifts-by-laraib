@@ -7,8 +7,11 @@ import { PageTransition } from '@/components/layout/PageTransition';
 import { site } from '@/lib/site';
 import { REVEAL_ENGINE } from '@/lib/reveal-engine';
 
+// site.url is validated in lib/site.ts, so this can no longer throw during the build.
+const metadataBase = new URL(site.url);
+
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase,
   title: {
     default: `${site.name} — Customized Gift Baskets & Hampers in Pakistan`,
     template: `%s · ${site.name}`,
