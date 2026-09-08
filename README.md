@@ -15,6 +15,7 @@ Ordering runs entirely through WhatsApp — no checkout, no server, no database.
 npm install
 npm run images          # ← once. Downloads all photography locally (see below)
 npm run content:import  # ← after any edit to the spreadsheets in /content
+                        #   (use content:pull if you edit them in Google Drive)
 npm run dev        # http://localhost:3000
 npm run build      # production build
 npm start          # serve the production build
@@ -106,9 +107,17 @@ Baskets, variants and materials are edited as **spreadsheets in `/content`**, no
 in code. Full instructions for whoever maintains them: **[content/HOW-TO.md](content/HOW-TO.md)**.
 
 ```bash
+npm run content:pull     # downloaded CSVs → content/*.csv, then imports
 npm run content:import   # content/*.csv  →  lib/content/*.data.ts
 npm run content:export   # the other way, if the data files were edited directly
 ```
+
+If the sheets are maintained in Google Drive, `content:pull` is the one to use:
+Drive and `content/` are separate copies, and `content:import` reads only the
+local file, so a Drive edit is invisible until the export is downloaded and put
+in place. `content:pull` finds the download, identifies each sheet by its header
+row, prints a row-level diff of what will change, backs up the current file and
+runs the import.
 
 | File | Holds |
 | --- | --- |

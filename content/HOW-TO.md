@@ -25,6 +25,70 @@ to deploy) to see it live.
 
 ---
 
+## If you edit the sheets in Google Drive
+
+**This is the part that catches everyone.** The sheet in Drive and the file in
+`content/` are two separate copies. Nothing in this project talks to Google, so
+changing a price in Drive does *nothing* to the site until the file comes down
+onto this computer. `content:import` only ever reads `content/products.csv`
+right here — and it rebuilds everything from that file every single time, so
+"the row is already imported" is never the reason a change didn't show up. The
+reason is always that the file on disk still has the old value.
+
+So: download, then pull.
+
+1. In the sheet: **File → Download → Comma-separated values (.csv)**
+2. From the project folder:
+
+```bash
+npm run content:pull
+```
+
+It looks in your Downloads folder (then Desktop), works out which sheet each CSV
+came from by reading its header row — so the name Google gives it doesn't
+matter — shows you exactly what's about to change, puts the files in place and
+runs the import for you.
+
+```
+  products - Sheet1 (1).csv · downloaded just now
+  Baskets    1 edited
+    ~ the-glow-hour
+        price: 6400 → 7200
+```
+
+If it says **no change**, your download is from before you made the edit.
+Download it again.
+
+Useful variations:
+
+```bash
+npm run content:pull -- --dry              # show the changes, write nothing
+npm run content:pull -- ~/Downloads/x.csv  # use this exact file
+npm run content:pull -- --no-import        # put files in place, import later
+```
+
+The previous version of each file is kept in `content/.backups/` — the last ten
+of each — so a bad pull is always undoable.
+
+### Which price do I change?
+
+Only baskets **without** sizes take their price from `products.csv`. Everything
+with sizes gets its price from `variants.csv`, and the `price` column in
+`products.csv` is left blank on purpose so there's only ever one place a number
+lives. Editing the blank one does nothing.
+
+| Basket has sizes? | Change the price in |
+| --- | --- |
+| Yes | `variants.csv`, on the row for that size |
+| No | `products.csv`, the `price` column |
+
+### Going back the other way
+
+`npm run content:export` rewrites the CSVs **from the code**. Never run it
+straight after downloading from Drive — it will overwrite what you just pulled.
+
+---
+
 ## The three ideas, and how they differ
 
 | | What it answers | How many per basket | Where you edit it |
