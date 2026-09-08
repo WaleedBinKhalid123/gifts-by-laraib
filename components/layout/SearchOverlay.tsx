@@ -4,7 +4,7 @@ import Image from '@/components/ui/Img';
 import Link from 'next/link';
 import { Search, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { products } from '@/lib/content/products';
+import { priceFrom, products } from '@/lib/content/products';
 import { occasions } from '@/lib/content/occasions';
 import { useOverlay } from '@/lib/useOverlay';
 import { cn, formatPKR, photo } from '@/lib/utils';
@@ -131,7 +131,7 @@ export function SearchOverlay({ onClose }: { onClose: () => void }) {
                     </span>
                     <span className="block truncate text-[0.8125rem] text-ink-muted">{p.tagline}</span>
                   </span>
-                  <span className="shrink-0 text-[0.8125rem] text-rose-600">{formatPKR(p.price)}</span>
+                  <span className="shrink-0 text-[0.8125rem] text-rose-600">{formatPKR(priceFrom(p))}</span>
                 </Link>
               </li>
             ))}

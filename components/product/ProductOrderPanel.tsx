@@ -3,9 +3,11 @@
 import { useMemo, useState } from 'react';
 import { Copy, Minus, Plus, Truck } from 'lucide-react';
 import type { Product } from '@/lib/types';
+import { defaultVariant, includesFor } from '@/lib/content/products';
 import { Button } from '@/components/ui/Button';
 import { HandwrittenCard } from '@/components/ui/HandwrittenCard';
 import { Toast, useToast } from '@/components/ui/Toast';
+import { DottedRule } from '@/components/ui/Ornament';
 import { site } from '@/lib/site';
 import { waProductOrder } from '@/lib/whatsapp';
 import { cn, formatPKR } from '@/lib/utils';
@@ -16,10 +18,8 @@ const field =
   'w-full rounded-md border border-blush-200 bg-cream-100 px-4 py-3 text-[0.9375rem] text-ink placeholder:text-ink-faint transition-colors focus:border-rose-400 focus:outline-none';
 
 export function ProductOrderPanel({ product }: { product: Product }) {
-  const sizes = product.sizes ?? [];
-  const [sizeLabel, setSizeLabel] = useState(
-    sizes.find((s) => s.priceDelta === 0)?.label ?? sizes[0]?.label ?? '',
-  );
+  const variants = product.variants ?? [];
+  const [variantId, setVariantId] = useState(() => defaultVariant(product)?.id ?? '');
   const [qty, setQty] = useState(1);
   const [to, setTo] = useState('');
   const [from, setFrom] = useState('');
@@ -30,17 +30,18 @@ export function ProductOrderPanel({ product }: { product: Product }) {
 
   const { message: toastMsg, toast } = useToast();
 
-  const unit = useMemo(() => {
-    const delta = sizes.find((s) => s.label === sizeLabel)?.priceDelta ?? 0;
-    return Math.max(0, product.price + delta);
-  }, [product.price, sizes, sizeLabel]);
-
+  const variant = variants.find((v) => v.id === variantId);
+  const unit = variant?.price ?? product.price;
   const total = unit * qty;
   const freeDelivery = total >= site.delivery.freeOver;
 
+  /* The contents list follows the chosen variant — a Deluxe holds more. */
+  const includes = useMemo(() => includesFor(product, variant), [product, variant]);
+
   const href = waProductOrder({
     product,
-    size: sizeLabel,
+    size: variant?.name,
+    unitPrice: unit,
     quantity: qty,
     message,
     recipientName: to,
@@ -53,16 +54,14 @@ export function ProductOrderPanel({ product }: { product: Product }) {
 
   const copySummary = async () => {
     const text = [
-      `${product.name}${sizeLabel ? ` (${sizeLabel})` : ''} × ${qty}`,
+      `${product.name}${variant ? ` (${variant.name})` : ''} × ${qty}`,
       `Total: ${formatPKR(total)}`,
       to ? `For: ${to}` : '',
       from ? `From: ${from}` : '',
       message ? `Message: "${message}"` : '',
       city ? `Deliver to: ${city}` : '',
       date ? `Needed by: ${date}` : '',
-    ]
-      .filter(Boolean)
-      .join('\n');
+    ].filter(Boolean).join('\n');
     try {
       await navigator.clipboard.writeText(text);
       toast('Order summary copied');
@@ -73,30 +72,80 @@ export function ProductOrderPanel({ product }: { product: Product }) {
 
   return (
     <div>
-      {/* Size */}
-      {sizes.length > 0 ? (
-        <fieldset className="mt-2">
-          <legend className="text-label uppercase text-rose-600">Choose your size</legend>
-          <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-            {sizes.map((s) => {
-              const active = s.label === sizeLabel;
+      {/* ---- What's inside (follows the selected variant) ---- */}
+      <div>
+        <p className="text-label uppercase text-rose-600">What&apos;s inside</p>
+        <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+          {includes.map((item) => (
+            <li key={item.name} className="flex items-baseline gap-3">
+              <span aria-hidden className="mt-[3px] h-1.5 w-1.5 shrink-0 rounded-full bg-rose-300" />
+              <span className="text-[0.9375rem] leading-snug text-ink-soft">
+                {item.name}
+                {item.note ? (
+                  <span className="block text-[0.8125rem] text-ink-faint">{item.note}</span>
+                ) : null}
+              </span>
+            </li>
+          ))}
+        </ul>
+        {variant?.includes?.length ? (
+          <p className="mt-4 text-[0.8125rem] text-ink-muted">
+            Contents shown for the <strong className="font-medium text-wine-700">{variant.name}</strong>{' '}
+            size.
+          </p>
+        ) : null}
+      </div>
+
+      <DottedRule width={140} className="mt-9" />
+
+      {/* ---- Variant ---- */}
+      {variants.length > 0 ? (
+        <fieldset className="mt-8">
+          <legend className="text-label uppercase text-rose-600">
+            Choose your {(product.variantLabel ?? 'Size').toLowerCase()}
+          </legend>
+          <div
+            className={cn(
+              'mt-4 grid gap-2.5',
+              variants.length >= 4 ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-2 sm:grid-cols-3',
+            )}
+          >
+            {variants.map((v) => {
+              const active = v.id === variantId;
               return (
                 <button
-                  key={s.label}
+                  key={v.id}
                   type="button"
-                  onClick={() => setSizeLabel(s.label)}
+                  onClick={() => setVariantId(v.id)}
                   aria-pressed={active}
+                  disabled={!v.available}
                   className={cn(
                     'rounded-lg border px-3 py-3 text-left transition-all duration-400 ease-expo',
                     active
                       ? 'border-wine-700 bg-wine-700 text-cream shadow-petal'
                       : 'border-blush-200 bg-cream text-ink-soft hover:border-rose-400',
+                    !v.available && 'cursor-not-allowed opacity-40 hover:border-blush-200',
                   )}
                 >
-                  <span className="block text-[0.875rem] font-medium">{s.label}</span>
-                  <span className={cn('mt-0.5 block text-[0.6875rem]', active ? 'text-blush-300' : 'text-ink-faint')}>
-                    {s.note}
+                  <span className="block text-[0.875rem] font-medium">{v.name}</span>
+                  <span
+                    className={cn(
+                      'mt-0.5 block text-[0.8125rem] tabular-nums',
+                      active ? 'text-blush-300' : 'text-wine-700',
+                    )}
+                  >
+                    {formatPKR(v.price)}
                   </span>
+                  {v.note ? (
+                    <span
+                      className={cn(
+                        'mt-0.5 block text-[0.6875rem]',
+                        active ? 'text-blush-200/70' : 'text-ink-faint',
+                      )}
+                    >
+                      {v.available ? v.note : 'Sold out'}
+                    </span>
+                  ) : null}
                 </button>
               );
             })}
@@ -104,7 +153,7 @@ export function ProductOrderPanel({ product }: { product: Product }) {
         </fieldset>
       ) : null}
 
-      {/* Quantity */}
+      {/* ---- Quantity ---- */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-5 border-y border-blush-200 py-5">
         <div className="flex items-center gap-4">
           <span className="text-label uppercase text-ink-faint">Quantity</span>
@@ -138,26 +187,20 @@ export function ProductOrderPanel({ product }: { product: Product }) {
         </div>
       </div>
 
-      {/* Personalisation */}
+      {/* ---- Personalisation ---- */}
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="to" className="text-label uppercase text-rose-600">
-            Their name
-          </label>
+          <label htmlFor="to" className="text-label uppercase text-rose-600">Their name</label>
           <input id="to" value={to} onChange={(e) => setTo(e.target.value)} placeholder="e.g. Amna" className={cn(field, 'mt-3')} />
         </div>
         <div>
-          <label htmlFor="from" className="text-label uppercase text-rose-600">
-            Your name
-          </label>
+          <label htmlFor="from" className="text-label uppercase text-rose-600">Your name</label>
           <input id="from" value={from} onChange={(e) => setFrom(e.target.value)} placeholder="e.g. Sara" className={cn(field, 'mt-3')} />
         </div>
       </div>
 
       <div className="mt-5">
-        <label htmlFor="msg" className="text-label uppercase text-rose-600">
-          Your handwritten note
-        </label>
+        <label htmlFor="msg" className="text-label uppercase text-rose-600">Your handwritten note</label>
         <textarea
           id="msg"
           rows={3}
@@ -179,23 +222,17 @@ export function ProductOrderPanel({ product }: { product: Product }) {
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="city" className="text-label uppercase text-rose-600">
-            Delivery city
-          </label>
+          <label htmlFor="city" className="text-label uppercase text-rose-600">Delivery city</label>
           <input id="city" value={city} onChange={(e) => setCity(e.target.value)} placeholder="e.g. Lahore" className={cn(field, 'mt-3')} />
         </div>
         <div>
-          <label htmlFor="date" className="text-label uppercase text-rose-600">
-            Needed by
-          </label>
+          <label htmlFor="date" className="text-label uppercase text-rose-600">Needed by</label>
           <input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} className={cn(field, 'mt-3')} />
         </div>
       </div>
 
       <div className="mt-5">
-        <label htmlFor="notes" className="text-label uppercase text-rose-600">
-          Anything to swap or add?
-        </label>
+        <label htmlFor="notes" className="text-label uppercase text-rose-600">Anything to swap or add?</label>
         <input
           id="notes"
           value={notes}
@@ -205,7 +242,6 @@ export function ProductOrderPanel({ product }: { product: Product }) {
         />
       </div>
 
-      {/* Actions */}
       <div className="mt-8 flex flex-wrap gap-3">
         <Button href={href} external variant="wa" size="lg" className="flex-1 sm:flex-none" magnetic>
           Order on WhatsApp

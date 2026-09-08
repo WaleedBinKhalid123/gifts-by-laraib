@@ -1,0 +1,34 @@
+productSlug,id,name,price,note,includes,available,isDefault
+pink-self-care-basket,mini,Mini,3300,4–5 items,,yes,no
+pink-self-care-basket,classic,Classic,4800,6–8 items,,yes,yes
+pink-self-care-basket,deluxe,Deluxe,7300,9–12 items,,yes,no
+pink-self-care-basket,luxury,Luxury,10300,"13+ items, premium wrap",,yes,no
+birthday-bliss,mini,Mini,4100,4–5 items,,yes,no
+birthday-bliss,classic,Classic,5600,6–8 items,,yes,yes
+birthday-bliss,deluxe,Deluxe,8100,9–12 items,,yes,no
+birthday-bliss,luxury,Luxury,11100,"13+ items, premium wrap",,yes,no
+love-and-romance,classic,Classic,7200,6–8 items,,yes,yes
+love-and-romance,deluxe,Deluxe,9700,9–12 items,,yes,no
+love-and-romance,luxury,Luxury,12700,"13+ items, premium wrap",,yes,no
+self-care-sunday,mini,Mini,4900,4–5 items,,yes,no
+self-care-sunday,classic,Classic,6400,6–8 items,,yes,yes
+self-care-sunday,deluxe,Deluxe,8900,9–12 items,,yes,no
+self-care-sunday,luxury,Luxury,11900,"13+ items, premium wrap",,yes,no
+bridal-glow,classic,Classic,12500,6–8 items,,yes,yes
+bridal-glow,deluxe,Deluxe,15000,9–12 items,,yes,no
+bridal-glow,luxury,Luxury,18000,"13+ items, premium wrap",,yes,no
+sweet-celebration,classic,Classic,4200,6–8 items,,yes,yes
+sweet-celebration,deluxe,Deluxe,6700,9–12 items,,yes,no
+eid-mubarak-hamper,mini,Mini,7400,4–5 items,,yes,no
+eid-mubarak-hamper,classic,Classic,8900,6–8 items,,yes,yes
+eid-mubarak-hamper,deluxe,Deluxe,11400,9–12 items,,yes,no
+eid-mubarak-hamper,luxury,Luxury,14400,"13+ items, premium wrap",,yes,no
+corporate-elegance,classic,Classic,9500,6–8 items,,yes,yes
+corporate-elegance,deluxe,Deluxe,12000,9–12 items,,yes,no
+corporate-elegance,luxury,Luxury,15000,"13+ items, premium wrap",,yes,no
+the-laraib-signature,deluxe,Deluxe,17500,9–12 items,,yes,yes
+the-laraib-signature,luxury,Luxury,20500,"13+ items, premium wrap",,yes,no
+new-mum-nest,classic,Classic,7800,6–8 items,,yes,yes
+new-mum-nest,deluxe,Deluxe,10300,9–12 items,,yes,no
+thank-you-always,classic,Classic,3600,6–8 items,,yes,yes
+thank-you-always,deluxe,Deluxe,6100,9–12 items,,yes,no

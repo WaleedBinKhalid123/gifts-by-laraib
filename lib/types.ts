@@ -31,6 +31,31 @@ export interface IncludedItem {
   note?: string;
 }
 
+/**
+ * A buyable version of one basket.
+ *
+ * Deliberately a single axis (size), not a size × colour grid. A grid means
+ * pricing, photographing and stock-checking every combination, which is the
+ * wrong shape for hand-made work. Anything else a customer wants is a note they
+ * add on WhatsApp.
+ *
+ * `price` is absolute, not a delta — what you type is what the customer pays,
+ * with no mental arithmetic when you are editing a spreadsheet at 11pm.
+ */
+export interface ProductVariant {
+  id: string;
+  /** "Mini", "Classic", "Deluxe", "Luxury" */
+  name: string;
+  price: number;
+  /** Short qualifier shown under the name, e.g. "6–8 items" */
+  note?: string;
+  /** Overrides the product's list when this variant holds different things. */
+  includes?: IncludedItem[];
+  available: boolean;
+  /** The one selected when the page opens. Falls back to the first available. */
+  isDefault?: boolean;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -38,6 +63,10 @@ export interface Product {
   /** One-line hook used on cards */
   tagline: string;
   description: string;
+  /**
+   * Base price. When the basket has variants this is the fallback only —
+   * `priceFrom()` reports the lowest variant price for cards and filters.
+   */
   price: number;
   /** Optional strike-through reference price */
   compareAtPrice?: number;
@@ -47,8 +76,10 @@ export interface Product {
   recipients: RecipientSlug[];
   tags: string[];
   includes: IncludedItem[];
-  /** Size options offered for this basket, priced as deltas */
-  sizes?: { label: string; priceDelta: number; note?: string }[];
+  /** Sizes offered for this basket. Omit for a single-price basket. */
+  variants?: ProductVariant[];
+  /** What the variant chooser is called on the product page. */
+  variantLabel?: string;
   customizable: boolean;
   available: boolean;
   featured: boolean;

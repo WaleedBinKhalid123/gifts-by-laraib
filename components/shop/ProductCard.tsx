@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import type { Product } from '@/lib/types';
+import { hasPriceRange, priceFrom } from '@/lib/content/products';
 import { cn, formatPKR, photo } from '@/lib/utils';
 
 export function ProductCard({
@@ -20,6 +21,8 @@ export function ProductCard({
 }) {
   const [primary, secondary] = product.images;
   const hasCompare = typeof product.compareAtPrice === 'number';
+  const from = priceFrom(product);
+  const showsRange = hasPriceRange(product);
   /**
    * The hover image is only mounted once the pointer has actually arrived.
    * Rendering both up front doubled every listing page's image requests —
@@ -106,7 +109,14 @@ export function ProductCard({
           </div>
 
           <div className="shrink-0 text-right">
-            <p className="font-display text-[1.125rem] text-wine-700">{formatPKR(product.price)}</p>
+            <p className="font-display text-[1.125rem] text-wine-700">
+              {showsRange ? (
+                <span className="mr-1 font-sans text-[0.6875rem] uppercase tracking-[0.14em] text-ink-faint">
+                  from
+                </span>
+              ) : null}
+              {formatPKR(from)}
+            </p>
             {hasCompare ? (
               <p className="text-[0.75rem] text-ink-faint line-through">
                 {formatPKR(product.compareAtPrice!)}
@@ -116,7 +126,9 @@ export function ProductCard({
         </div>
 
         <p className="mt-3 text-[0.75rem] uppercase tracking-[0.16em] text-ink-faint">
-          {product.includes.length} pieces
+          {product.variants?.length
+            ? `${product.variants.length} sizes`
+            : `${product.includes.length} pieces`}
           <span className="mx-2 text-blush-300">·</span>
           {product.leadTimeDays === 1 ? 'Ready in 24h' : `${product.leadTimeDays} day lead time`}
         </p>

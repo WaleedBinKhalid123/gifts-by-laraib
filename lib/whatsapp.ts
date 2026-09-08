@@ -24,7 +24,9 @@ export const waGeneral = () =>
 
 export interface ProductOrderInput {
   product: Product;
+  /** Variant name, e.g. "Deluxe" */
   size?: string;
+  unitPrice?: number;
   quantity: number;
   message?: string;
   recipientName?: string;
@@ -37,7 +39,7 @@ export interface ProductOrderInput {
 
 export function waProductOrder(input: ProductOrderInput) {
   const {
-    product, size, quantity, message, recipientName,
+    product, size, unitPrice, quantity, message, recipientName,
     senderName, deliveryCity, deliveryDate, notes, total,
   } = input;
 
@@ -46,7 +48,7 @@ export function waProductOrder(input: ProductOrderInput) {
     '',
     `*Basket:* ${product.name}`,
     size ? `*Size:* ${size}` : '',
-    `*Quantity:* ${quantity}`,
+    `*Quantity:* ${quantity}${unitPrice && quantity > 1 ? ` × ${formatPKR(unitPrice)}` : ''}`,
     `*Estimated total:* ${formatPKR(total)}`,
     '',
     recipientName ? `*For:* ${recipientName}` : '',

@@ -3,7 +3,7 @@
 import { SlidersHorizontal, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { categories, products, recipients } from '@/lib/content/products';
+import { categories, priceFrom, products, recipients } from '@/lib/content/products';
 import { occasions } from '@/lib/content/occasions';
 import { ProductCard } from '@/components/shop/ProductCard';
 import { cn, formatPKR } from '@/lib/utils';
@@ -19,9 +19,9 @@ const SORTS: { id: Sort; label: string }[] = [
 
 const BUDGETS = [
   { id: 'all', label: 'Any budget', test: () => true },
-  { id: 'u3', label: 'Under Rs 4,000', test: (p: Product) => p.price < 4000 },
-  { id: 'u8', label: 'Rs 4,000 – 8,000', test: (p: Product) => p.price >= 4000 && p.price <= 8000 },
-  { id: 'o8', label: 'Above Rs 8,000', test: (p: Product) => p.price > 8000 },
+  { id: 'u3', label: 'Under Rs 4,000', test: (p: Product) => priceFrom(p) < 4000 },
+  { id: 'u8', label: 'Rs 4,000 – 8,000', test: (p: Product) => priceFrom(p) >= 4000 && priceFrom(p) <= 8000 },
+  { id: 'o8', label: 'Above Rs 8,000', test: (p: Product) => priceFrom(p) > 8000 },
 ];
 
 function Pill({
@@ -78,8 +78,8 @@ export function ProductGrid({
         (recipient === 'all' || (p.recipients as string[]).includes(recipient)) &&
         budgetTest(p),
     );
-    if (sort === 'price-asc') return [...list].sort((a, b) => a.price - b.price);
-    if (sort === 'price-desc') return [...list].sort((a, b) => b.price - a.price);
+    if (sort === 'price-asc') return [...list].sort((a, b) => priceFrom(a) - priceFrom(b));
+    if (sort === 'price-desc') return [...list].sort((a, b) => priceFrom(b) - priceFrom(a));
     return [...list].sort((a, b) => Number(b.featured) - Number(a.featured));
   }, [source, category, occasion, recipient, budget, sort]);
 
@@ -242,7 +242,7 @@ export function ProductGrid({
 
       {filtered.length > 0 ? (
         <p className="mt-12 text-center text-[0.8125rem] text-ink-faint">
-          Prices from {formatPKR(Math.min(...filtered.map((p) => p.price)))} · every basket can be
+          Prices from {formatPKR(Math.min(...filtered.map(priceFrom)))} · every basket can be
           customized
         </p>
       ) : null}

@@ -54,6 +54,14 @@ const USE_LOCAL_IMAGES = false;
  * 1600px to fill a 280px card is the main reason a page like this feels slow.
  */
 export function photo(id: string, w = 1200) {
+  // Already a path — use it as given.
+  if (id.startsWith('/') || id.startsWith('http')) return id;
+
+  // Your own photograph: any filename that is not an Unsplash id, e.g.
+  // "bridal-glow-01.jpg" in public/images/. This is what you will use once
+  // Laraib's real photos replace the stock ones.
+  if (!id.startsWith('photo-')) return `/images/${id}`;
+
   if (USE_LOCAL_IMAGES) return `/images/${id}.jpg`;
   return `https://images.unsplash.com/${id}?auto=format&fit=crop&q=75&w=${w}`;
 }

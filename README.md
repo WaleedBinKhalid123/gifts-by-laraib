@@ -13,7 +13,8 @@ Ordering runs entirely through WhatsApp — no checkout, no server, no database.
 
 ```bash
 npm install
-npm run images     # ← do this once. Downloads all photography locally (see below)
+npm run images          # ← once. Downloads all photography locally (see below)
+npm run content:import  # ← after any edit to the spreadsheets in /content
 npm run dev        # http://localhost:3000
 npm run build      # production build
 npm start          # serve the production build
@@ -101,27 +102,56 @@ NEXT_PUBLIC_SITE_URL=https://giftsbylaraib.com
 
 ## Content model
 
-No content is hardcoded inside components. Everything is typed data in `lib/content/`, ready to be swapped for a CMS or an admin API without touching the UI.
+Baskets, variants and materials are edited as **spreadsheets in `/content`**, not
+in code. Full instructions for whoever maintains them: **[content/HOW-TO.md](content/HOW-TO.md)**.
 
-| File | What it holds |
+```bash
+npm run content:import   # content/*.csv  →  lib/content/*.data.ts
+npm run content:export   # the other way, if the data files were edited directly
+```
+
+| File | Holds |
 | --- | --- |
-| `lib/content/products.ts` | Baskets: name, slug, price, images, category, occasions, recipients, included items, sizes, availability, featured flag, lead time |
-| `lib/content/occasions.ts` | Occasions used by the homepage rail and `/occasions/[slug]` |
-| `lib/content/builder.ts` | Basket sizes, themes, add-on items and wrapping styles for the configurator |
-| `lib/content/testimonials.ts` | Reviews |
-| `lib/content/gallery.ts` | The editorial Instagram-style grid |
-| `lib/content/faqs.ts` | FAQ entries (also emitted as FAQPage structured data) |
-| `lib/site.ts` | Business details, navigation, footer links, delivery policy |
+| `content/products.csv` | One row per basket |
+| `content/variants.csv` | One row per size, linked by `productSlug` |
+| `content/items.csv` | Materials offered in the Customize configurator |
 
-Types are in `lib/types.ts`.
+The import validates every row — unknown category, misspelled occasion, duplicate
+slug, orphaned variant, non-numeric price — and refuses to write anything until
+they're fixed, reporting each with a line number. The generated
+`lib/content/*.data.ts` files are plain JSON behind one `export const`, so they
+diff cleanly and the exporter can read them straight back.
 
-### Adding a basket
+### The three concepts
 
-Append an object to `products` in `lib/content/products.ts`. The shop grid, filters, product page, sitemap, related-products logic and structured data all pick it up automatically — `generateStaticParams` builds a static page per slug at build time.
+- **Category** — what kind of basket it is. Exactly one per basket. Drives the
+  `/shop` filter pills.
+- **Occasion** — when you'd send it. Many per basket. Each has its own landing
+  page, sitemap entry and metadata.
+- **Variant** — a buyable size of one basket, with its own absolute price,
+  optional contents override and its own in-stock flag.
+
+Variants are deliberately **one axis** (size), not a size × colour grid. A grid
+means pricing, photographing and stock-checking every combination; for
+hand-made work that cost is not repaid. Anything else the customer wants travels
+in the WhatsApp note.
+
+A basket with no rows in `variants.csv` is simply single-price — no chooser, a
+plain `Offer` in its structured data instead of an `AggregateOffer`. Both paths
+are exercised by the shipped sample data.
+
+### Still hand-written
+
+Categories, occasions and recipients live in `lib/content/products.ts`,
+`lib/content/occasions.ts` and `lib/types.ts`. Adding one means a new page,
+navigation entry and SEO surface, so it stays a considered code change rather
+than a spreadsheet row. HOW-TO.md walks through it.
 
 ### Moving to a CMS later
 
-Each content file exports plain arrays plus small accessor functions (`getProduct`, `productsByOccasion`, `featuredProducts`, `relatedProducts`). Replace the array with a fetch and keep the accessors' signatures, and no component needs to change.
+Each content file exports plain arrays plus small accessors (`getProduct`,
+`priceFrom`, `includesFor`, `productsByOccasion`, `relatedProducts`). Replace the
+array with a fetch, keep the accessor signatures, and no component changes.
 
 ---
 
