@@ -1045,5 +1045,76 @@ export const productList: Product[] = [
       }
     ],
     "variantLabel": "Size"
+  },
+  {
+    "id": "p-the-glow-hour",
+    "name": "The Glow Hour",
+    "slug": "the-glow-hour",
+    "tagline": "Everything for the hour before she walks out the door",
+    "description": "Blush palette, glosses, hand cream and a sheet mask packed into a square wicker tray, with roses in one corner and a little pink bear in the other. It's the basket for the friend who does her own glam and still wants somebody to make a fuss of her. Tell us her shades and we'll pick them — otherwise we choose the ones that suit almost everyone.",
+    "price": 6400,
+    "images": [
+      {
+        "id": "glow-hour-01.jpg",
+        "alt": "Square wicker basket holding a blush palette, lip glosses, hand cream, a sheet mask, pink roses and a small pink teddy bear"
+      }
+    ],
+    "category": "self-care",
+    "occasions": [
+      "birthday",
+      "graduation",
+      "eid",
+      "just-because"
+    ],
+    "recipients": [
+      "for-her"
+    ],
+    "tags": [
+      "beauty",
+      "makeup",
+      "flowers included",
+      "ready to ship"
+    ],
+    "includes": [
+      {
+        "name": "Emelie 4-colour blush palette"
+      },
+      {
+        "name": "Emelie lip gloss",
+        "note": "2 shades"
+      },
+      {
+        "name": "3Q Beauty Hot Pink lip oil"
+      },
+      {
+        "name": "Meidián strawberry hand cream"
+      },
+      {
+        "name": "Bioaqua sheet mask"
+      },
+      {
+        "name": "Mocallure mini compact"
+      },
+      {
+        "name": "Rollerball fragrance vial"
+      },
+      {
+        "name": "Pink plush bear"
+      },
+      {
+        "name": "Roses & white gypsophila",
+        "note": "Hand-set"
+      },
+      {
+        "name": "Pink satin ribbon finish"
+      },
+      {
+        "name": "Handwritten card"
+      }
+    ],
+    "customizable": true,
+    "available": true,
+    "featured": true,
+    "leadTimeDays": 2
   }
 ];
