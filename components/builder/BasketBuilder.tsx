@@ -14,7 +14,8 @@ import type { BuilderItem, BuilderSelection } from '@/lib/types';
 import { BasketPreview } from '@/components/builder/BasketPreview';
 import { Button } from '@/components/ui/Button';
 import { Toast, useToast } from '@/components/ui/Toast';
-import { waCustomBasket } from '@/lib/whatsapp';
+import { customBasketText } from '@/lib/order';
+import { OrderButton } from '@/components/ui/OrderButton';
 import { cn, formatPKR, photo } from '@/lib/utils';
 
 const STEPS = [
@@ -414,14 +415,15 @@ export function BasketBuilder() {
                   <div className="mt-8 rounded-xl border border-blush-200 bg-blush-50 p-5">
                     <p className="text-label uppercase text-rose-600">Nearly there</p>
                     <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft">
-                      Sending this opens WhatsApp with your basket written out in full — size, theme,
-                      every item, wrapping and your note. We reply with availability, the final price
-                      and a delivery date, usually within the hour.
+                      Sending this copies your basket out in full — size, theme, every item,
+                      wrapping and your note — and opens our Instagram messages. Paste it and send.
+                      We reply with availability, the final price and a delivery date, usually within
+                      the hour.
                     </p>
                     <div className="mt-6 flex flex-wrap gap-3">
-                      <Button href={waCustomBasket(selection, total)} external variant="wa" size="lg" magnetic>
-                        Send my basket on WhatsApp
-                      </Button>
+                      <OrderButton text={customBasketText(selection, total)} size="lg" magnetic>
+                        Send my basket on Instagram
+                      </OrderButton>
                       <Button type="button" variant="outline" size="lg" onClick={() => setStep(0)}>
                         Start again
                       </Button>

@@ -9,7 +9,8 @@ import { HandwrittenCard } from '@/components/ui/HandwrittenCard';
 import { Toast, useToast } from '@/components/ui/Toast';
 import { DottedRule } from '@/components/ui/Ornament';
 import { site } from '@/lib/site';
-import { waProductOrder } from '@/lib/whatsapp';
+import { productOrderText } from '@/lib/order';
+import { OrderButton } from '@/components/ui/OrderButton';
 import { cn, formatPKR } from '@/lib/utils';
 
 const MAX_MESSAGE = 160;
@@ -38,7 +39,7 @@ export function ProductOrderPanel({ product }: { product: Product }) {
   /* The contents list follows the chosen variant — a Deluxe holds more. */
   const includes = useMemo(() => includesFor(product, variant), [product, variant]);
 
-  const href = waProductOrder({
+  const orderText = productOrderText({
     product,
     size: variant?.name,
     unitPrice: unit,
@@ -242,10 +243,10 @@ export function ProductOrderPanel({ product }: { product: Product }) {
         />
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-3">
-        <Button href={href} external variant="wa" size="lg" className="flex-1 sm:flex-none" magnetic>
-          Order on WhatsApp
-        </Button>
+      <div className="mt-8 flex flex-wrap items-start gap-3">
+        <OrderButton text={orderText} size="lg" className="flex-1 sm:flex-none" magnetic>
+          Order on Instagram
+        </OrderButton>
         <Button type="button" variant="outline" size="lg" onClick={copySummary}>
           <Copy className="h-4 w-4" strokeWidth={1.6} />
           Copy summary
@@ -253,8 +254,9 @@ export function ProductOrderPanel({ product }: { product: Product }) {
       </div>
 
       <p className="mt-4 text-[0.8125rem] leading-relaxed text-ink-muted">
-        No payment is taken here. Your details open a message to us — we confirm availability, final
-        price and delivery before anything is charged.
+        No payment is taken here. Your order is copied to your clipboard and our Instagram messages
+        open — paste it and send. We confirm availability, final price and delivery before anything
+        is charged.
       </p>
 
       <div className="mt-6 flex items-start gap-3 rounded-lg bg-blush-50 p-4">

@@ -29,27 +29,24 @@ All 1200×1600 portrait unless noted. No duplicates.
 | 15 | `15-wicker-baskets-round.jpg` | Round wicker baskets, nested, three sizes | **Basket base — Mini / Classic / Deluxe** |
 | 16 | `16-wicker-baskets-square.jpg` | Square wicker baskets, nested, three sizes | **Basket base — Mini / Classic / Deluxe** |
 
-## Batch 2 — received 8 Sep 2026
+## Batch 2 — received 9 Sep 2026
 
-**These 12 came through in chat but are not saved to disk yet.** Catalogued here
-so the inventory is complete and designs can reference them; please re-send them
-as attachments when you want them staged. Names below are what I'd suggest
-saving them as.
+All twelve are now saved to disk. Portrait 1200×1600 unless noted.
 
-| # | Suggested name | What it is | Likely role |
+| # | File | What it is | Likely role |
 | --- | --- | --- | --- |
-| 17 | `17-bamboo-basket-gold-handle.jpg` | Square bamboo baskets, tall gold-foil handles, silver rope trim, gold foil floral/heart lining — nested pair | **Basket base — premium** |
-| 18 | `18-bamboo-basket-gold-star.jpg` | Two small square bamboo baskets, gold handles, white rope trim, gold star holographic lining | **Basket base — small/premium** |
-| 19 | `19-rigid-gift-boxes-kraft.jpg` | Kraft/black rigid lidded gift boxes, three nested sizes, clear acetate panels | **Basket base — Mini / Classic / Deluxe** |
-| 20 | `20-black-hat-box-styled.jpg` | Black round hat box (bagged) + one styled with burgundy roses, white gypsophila and a white teddy in a striped party hat | **Hero shot — Midnight Rose** |
-| 21 | `21-hat-box-dark-rose.jpg` | Dark rose round lidded hat boxes, two sizes | Basket base |
-| 22 | `22-hat-box-light-pink.jpg` | Light pink round lidded hat boxes, two sizes | Basket base |
-| 23 | `23-hat-box-white.jpg` | White round lidded hat boxes, two sizes | Basket base |
-| 24 | `24-cube-cap-perfume.jpg` | Square glass perfume bottle, pink juice, textured gold cube cap | Basket item · Pamper |
+| 17 | `17-bamboo-basket-gold-handle.jpg` | Square bamboo basket, tall gold-foil handle, silver rope trim, gold foil heart-and-floral lining — nested pair | **Basket base — premium** |
+| 18 | `18-bamboo-basket-gold-star.jpg` | Two small square bamboo baskets, gold handles, white rope trim, gold star holographic lining | **Basket base — small, premium** |
+| 19 | `19-rigid-gift-boxes-kraft.jpg` *(landscape)* | Kraft/black rigid lidded boxes, three nested sizes, clear acetate side panels | **Box base — Mini / Classic / Deluxe** |
+| 20 | `20-hat-box-black-styled.jpg` | Black round hat box (bagged) beside one styled with burgundy roses, white gypsophila and a white teddy in a party hat | **Hero reference — the rose-ring technique** |
+| 21 | `21-hat-box-deep-rose.jpg` | Deep rose round lidded hat boxes, two sizes | Box base |
+| 22 | `22-hat-box-light-pink.jpg` | Light pink round lidded hat boxes, two sizes | Box base |
+| 23 | `23-hat-box-white.jpg` | White round lidded hat boxes, two sizes | Box base |
+| 24 | `24-cube-cap-perfume.jpg` | Square glass perfume, pink juice, textured gold cube cap | Basket item · Pamper |
 | 25 | `25-ombre-body-mist.jpg` | Cylindrical glass bottle, black→magenta ombré, black cap | Basket item · Pamper |
 | 26 | `26-rollon-vials-clear.jpg` | Two slim clear glass roll-on vials, yellow caps | Basket item · Pamper |
 | 27 | `27-rollon-vials-clear-alt.jpg` | Same vials, alternate angle | Alternate shot |
-| 28 | `28-rollon-vials-yellow.jpg` | Two slim glass vials, yellow caps, bright yellow liquid | Basket item · Pamper |
+| 28 | `28-rollon-vials-yellow.jpg` | Two slim glass vials, yellow caps, yellow liquid | Basket item · Pamper |
 
 ### The containers, summarised
 
@@ -59,11 +56,12 @@ and round hat boxes in black / dark rose / light pink / white (2 sizes each).
 That's more than enough range to give every category its own silhouette, which
 is what stops a shop of twelve baskets looking like one basket twelve times.
 
-### Four photos did not come through
+### Four photos still outstanding
 
-The chat also showed instant noodles (Buldak / Mi ABC / Volcano), butterfly-print
-wrapping sheets, bamboo skewers, and two bags of party balloons — but only 16
-files were saved. Please re-send those four.
+Instant noodles (Buldak / Mi ABC / Volcano), butterfly-print wrapping sheets,
+bamboo skewers and two bags of party balloons have appeared in chat twice now
+but have never saved to disk — uploads seem to cap at 16 files per message.
+Send them in a message of their own and they should land.
 
 ### Notes for when we use these
 

@@ -7,7 +7,7 @@ import { site } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Build Your Own Gift Basket',
   description:
-    'Design a customized gift basket piece by piece — choose the size, theme, contents, wrapping and a handwritten message. Sent straight to us on WhatsApp.',
+    'Design a customized gift basket piece by piece — choose the size, theme, contents, wrapping and a handwritten message. Sent straight to us on Instagram.',
   alternates: { canonical: '/customize' },
   openGraph: {
     title: `Build Your Own Gift Basket · ${site.name}`,

@@ -8,7 +8,8 @@ import { Logo } from '@/components/layout/Logo';
 import { MobileMenu } from '@/components/layout/MobileMenu';
 import { SearchOverlay } from '@/components/layout/SearchOverlay';
 import { site } from '@/lib/site';
-import { waGeneral } from '@/lib/whatsapp';
+import { instagramProfile } from '@/lib/order';
+import { InstagramGlyph } from '@/components/ui/InstagramGlyph';
 import { useScrolledPast } from '@/lib/scroll';
 import { cn } from '@/lib/utils';
 
@@ -21,15 +22,26 @@ export function Navbar() {
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
+  /**
+   * Only the homepage opens with a full-bleed hero built to sit under a bare
+   * navbar. Every other page starts with content right under the header, so a
+   * transparent bar there just puts nav links on top of photographs.
+   */
+  const overHero = pathname === '/' && !condensed;
+
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50">
         <div
           className={cn(
             'border-b transition-[background-color,box-shadow,border-color] duration-500 ease-expo',
-            condensed
-              ? 'border-blush-200 bg-cream/95 shadow-[0_1px_0_rgba(122,15,60,0.05)] supports-[backdrop-filter]:bg-cream/80 supports-[backdrop-filter]:backdrop-blur-md'
-              : 'border-transparent bg-transparent',
+            overHero
+              ? 'border-transparent bg-transparent'
+              : // Frosted, but opaque enough that a photograph underneath never
+                // reads as text through the bar.
+                'border-blush-200 bg-cream/[0.97] shadow-[0_1px_0_rgba(122,15,60,0.05)] ' +
+                'supports-[backdrop-filter]:bg-cream/[0.95] supports-[backdrop-filter]:backdrop-blur-2xl ' +
+                'supports-[backdrop-filter]:backdrop-saturate-150',
           )}
         >
           <nav
@@ -79,12 +91,13 @@ export function Navbar() {
               </button>
 
               <a
-                href={waGeneral()}
+                href={instagramProfile()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden h-10 items-center rounded-full bg-wine-700 px-5 text-[0.8125rem] font-medium text-cream shadow-petal transition-all duration-300 ease-expo hover:bg-wine-600 hover:shadow-lift sm:inline-flex"
+                className="hidden h-10 items-center gap-2 rounded-full bg-[linear-gradient(120deg,#F9A245_0%,#E8446E_45%,#C42FA0_78%,#8B3AC4_100%)] px-5 text-[0.8125rem] font-medium text-white shadow-petal transition-all duration-300 ease-expo hover:shadow-lift hover:brightness-[1.06] sm:inline-flex"
               >
-                Order on WhatsApp
+                <InstagramGlyph className="h-4 w-4" />
+                Order on Instagram
               </a>
 
               <button

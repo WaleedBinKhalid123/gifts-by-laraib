@@ -37,7 +37,7 @@ export default function FaqsPage() {
       <PageHeader
         crumbs={[{ label: 'FAQs' }]}
         eyebrow="Good questions"
-        title="Everything you'd probably ask on WhatsApp anyway."
+        title="Everything you'd probably ask in our DMs anyway."
         lede="And if the answer isn't here, just message us — we'd rather answer it properly than have you guess."
       />
 

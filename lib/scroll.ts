@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 /**
  * One rAF-throttled scroll listener for the whole app, shared by the navbar,
- * the floating WhatsApp button and every parallax layer.
+ * the floating Instagram button and every parallax layer.
  *
  * Registering a listener per component is what makes a page with a dozen
  * scroll-linked effects stutter. This keeps it to a single listener and a single

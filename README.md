@@ -5,7 +5,7 @@ Brand site for a customized gift-basket business. Next.js 16 (App Router) · Typ
 No animation library, no smooth-scroll library — all motion is CSS plus ~120 lines
 of vanilla JS. The homepage ships about **23 KB of gzipped JavaScript**.
 
-Ordering runs entirely through WhatsApp — no checkout, no server, no database. Every "order" button composes a structured WhatsApp message on the visitor's own device.
+Ordering runs entirely through Instagram DMs — no checkout, no server, no database. Every "order" button composes a structured summary on the visitor's own device, copies it to their clipboard and opens the shop's Instagram messages.
 
 ---
 
@@ -14,8 +14,7 @@ Ordering runs entirely through WhatsApp — no checkout, no server, no database.
 ```bash
 npm install
 npm run images          # ← once. Downloads all photography locally (see below)
-npm run content:import  # ← after any edit to the spreadsheets in /content
-                        #   (use content:pull if you edit them in Google Drive)
+npm run sync            # ← after any edit to the Google Sheets in Drive
 npm run dev        # http://localhost:3000
 npm run build      # production build
 npm start          # serve the production build
@@ -78,10 +77,10 @@ replace the stock ones.
 
 ## First things to change
 
-Everything business-specific lives in **`lib/site.ts`**. Change it there and it updates across the whole site — nav, footer, metadata, structured data and every WhatsApp link.
+Everything business-specific lives in **`lib/site.ts`**. Change it there and it updates across the whole site — nav, footer, metadata, structured data and every Instagram link.
 
 ```ts
-whatsapp: {
+instagram: {
   number: '923001234567',      // ← REPLACE. International format, digits only, no + or spaces
   display: '+92 300 123 4567', // ← REPLACE. How it reads on screen
 },
@@ -107,17 +106,17 @@ Baskets, variants and materials are edited as **spreadsheets in `/content`**, no
 in code. Full instructions for whoever maintains them: **[content/HOW-TO.md](content/HOW-TO.md)**.
 
 ```bash
-npm run content:pull     # downloaded CSVs → content/*.csv, then imports
-npm run content:import   # content/*.csv  →  lib/content/*.data.ts
-npm run content:export   # the other way, if the data files were edited directly
+npm run sync             # Google Sheets in Drive → lib/content/*.data.ts
+npm run sync -- --dry    # fetch and validate, write nothing
+npm run sync -- --offline  # rebuild from the last download, no internet
 ```
 
-If the sheets are maintained in Google Drive, `content:pull` is the one to use:
-Drive and `content/` are separate copies, and `content:import` reads only the
-local file, so a Drive edit is invisible until the export is downloaded and put
-in place. `content:pull` finds the download, identifies each sheet by its header
-row, prints a row-level diff of what will change, backs up the current file and
-runs the import.
+The three sheets in Drive are the source of truth. `sync` fetches them over the
+CSV export endpoint (no API key — each sheet just needs "Anyone with the link →
+Viewer"), validates every row against the category/occasion/recipient unions, and
+regenerates the data files. It also drops a snapshot of each sheet into
+`content/*.csv` so a git diff shows what changed; those snapshots are outputs, not
+inputs. Sheet links live in `content/sheets.json`.
 
 | File | Holds |
 | --- | --- |
@@ -143,7 +142,7 @@ diff cleanly and the exporter can read them straight back.
 Variants are deliberately **one axis** (size), not a size × colour grid. A grid
 means pricing, photographing and stock-checking every combination; for
 hand-made work that cost is not repaid. Anything else the customer wants travels
-in the WhatsApp note.
+in the Instagram note.
 
 A basket with no rows in `variants.csv` is simply single-price — no chooser, a
 plain `Offer` in its structured data instead of an `AggregateOffer`. Both paths
@@ -192,16 +191,16 @@ The brand mark in `public/logo.png` is the supplied badge, cropped and squared. 
 
 ## Ordering
 
-`lib/whatsapp.ts` is the only place that builds order links:
+`lib/order.ts` is the only place that builds order messages:
 
-- `waProductOrder()` — a basket from a product page (size, quantity, card message, recipient, delivery city, date, notes, total)
-- `waCustomBasket()` — a basket from the configurator (size, theme, every item, wrapping, message)
-- `waEnquiry()` — the contact form
-- `waGeneral()` — plain "hello"
+- `productOrderText()` — a basket from a product page (size, quantity, card message, recipient, delivery city, date, notes, total)
+- `customBasketText()` — a basket from the configurator (size, theme, every item, wrapping, message)
+- `enquiryText()` — the contact form
+- `generalEnquiryText()` — plain "hello"
 
-Each returns a `https://wa.me/...` URL with a formatted, readable message. Nothing is stored or transmitted anywhere else.
+Each returns plain readable text. `copyThenOpenDM()` puts it on the clipboard and opens `ig.me/m/<handle>`; `components/ui/OrderButton.tsx` wraps that and reports whether the clipboard write actually succeeded. Instagram cannot pre-fill a message the way `wa.me` links could, so copy-then-paste is the honest version of this flow. Nothing is stored or transmitted anywhere else.
 
-**Adding a real cart and checkout later:** the panels already collect everything a cart line item needs. Swap the WhatsApp button for an `addToCart(product, options)` call and keep the WhatsApp link as a secondary path — the data shapes do not change.
+**Adding a real cart and checkout later:** the panels already collect everything a cart line item needs. Swap `OrderButton` for an `addToCart(product, options)` call and keep the Instagram path as a secondary route — the data shapes do not change.
 
 ---
 
@@ -240,7 +239,7 @@ container on the site and could leave the page unresponsive.
 ### Scroll-linked effects
 
 One shared, rAF-throttled scroll listener (`lib/scroll.ts`) that every subscriber
-reads from — the navbar condense, the floating WhatsApp button, and all parallax.
+reads from — the navbar condense, the floating Instagram button, and all parallax.
 Parallax writes straight to `style.transform` (`lib/useParallax.ts`), so there is
 no React re-render per frame.
 
@@ -319,7 +318,7 @@ app/
   sitemap.ts robots.ts manifest.ts not-found.tsx
 components/
   layout/    Navbar, MobileMenu, SearchOverlay, Footer, PageHeader, Logo,
-             SmoothScroll, PageTransition, WhatsAppFab
+             SmoothScroll, PageTransition, InstagramFab
   home/      Hero, TrustBar, OccasionRail, FeaturedBaskets, CustomizeTeaser,
              HowItWorks, BrandStory, TestimonialCarousel, InstagramGallery, FinalCTA
   shop/      ProductCard, ProductGrid
@@ -328,7 +327,7 @@ components/
   contact/   EnquiryForm
   ui/        Button, SectionHeading, Reveal, Ornament, HandwrittenCard, Toast
 lib/
-  site.ts types.ts utils.ts motion.ts useReveal.ts whatsapp.ts
+  site.ts types.ts utils.ts motion.ts useReveal.ts order.ts
   content/ products occasions builder testimonials gallery faqs
 ```
 

@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { InstagramGlyph } from '@/components/ui/InstagramGlyph';
 
-type Variant = 'primary' | 'outline' | 'ghost' | 'wa';
+type Variant = 'primary' | 'outline' | 'ghost' | 'ig';
 type Size = 'sm' | 'md' | 'lg';
 
 const base =
@@ -19,7 +20,8 @@ const variants: Record<Variant, string> = {
   outline:
     'border border-wine-700/25 text-wine-700 hover:border-wine-700/60 hover:bg-wine-700/[0.04]',
   ghost: 'text-wine-700 hover:bg-wine-700/[0.06]',
-  wa: 'bg-[#1FA855] text-white shadow-petal hover:shadow-lift hover:bg-[#188F47]',
+  // Instagram's own gradient, warm end first so it sits with the brand's blush.
+  ig: 'text-white shadow-petal hover:shadow-lift bg-[linear-gradient(120deg,#F9A245_0%,#E8446E_45%,#C42FA0_78%,#8B3AC4_100%)] hover:brightness-[1.06]',
 };
 
 const sizes: Record<Size, string> = {
@@ -95,6 +97,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
             aria-hidden
             className="h-3.5 w-3.5 animate-spin rounded-full border-[1.5px] border-current border-t-transparent"
           />
+        ) : variant === 'ig' ? (
+          <InstagramGlyph className="h-[17px] w-[17px]" />
         ) : null}
         {children}
       </span>

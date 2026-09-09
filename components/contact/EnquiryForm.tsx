@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
+import { OrderButton } from '@/components/ui/OrderButton';
 import { occasions } from '@/lib/content/occasions';
-import { waEnquiry } from '@/lib/whatsapp';
+import { enquiryText } from '@/lib/order';
 import { cn } from '@/lib/utils';
 
 const field =
@@ -21,21 +21,17 @@ export function EnquiryForm() {
   const [touched, setTouched] = useState(false);
 
   const valid = name.trim().length > 1;
-  const href = waEnquiry({ name, phone, occasion, budget, date, details });
+  const text = enquiryText({ name, phone, occasion, budget, date, details });
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setTouched(true);
-        if (valid) window.open(href, '_blank', 'noopener,noreferrer');
-      }}
+      onSubmit={(e) => e.preventDefault()}
       className="rounded-[1.75rem] border border-blush-200 bg-cream p-6 shadow-petal sm:p-8"
     >
       <p className="text-label uppercase text-rose-600">Tell us what you&apos;re imagining</p>
       <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-muted">
-        Fill in what you know — even a rough idea is enough to start. This opens WhatsApp with your
-        answers already written out.
+        Fill in what you know — even a rough idea is enough to start. Your answers are copied out in
+        full and our Instagram messages open, ready to paste.
       </p>
 
       <div className="mt-7 grid gap-4 sm:grid-cols-2">
@@ -143,9 +139,17 @@ export function EnquiryForm() {
       </div>
 
       <div className="mt-7 flex flex-wrap items-center gap-4">
-        <Button type="submit" variant="wa" size="lg" magnetic>
-          Send on WhatsApp
-        </Button>
+        <OrderButton
+          text={text}
+          size="lg"
+          magnetic
+          onBeforeSend={() => {
+            setTouched(true);
+            return valid;
+          }}
+        >
+          Send on Instagram
+        </OrderButton>
         <p className="text-[0.8125rem] text-ink-faint">Nothing is stored on this site.</p>
       </div>
     </form>

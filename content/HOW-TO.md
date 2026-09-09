@@ -1,101 +1,75 @@
 # Adding baskets, variants and materials
 
-Everything on the shop is driven by three spreadsheets in this folder. You edit
-them in Excel or Google Sheets, run one command, and the site updates.
+Everything on the shop is driven by three Google Sheets in your Drive:
 
 ```
-content/products.csv   ← the baskets
-content/variants.csv   ← the sizes each basket comes in
-content/items.csv      ← the materials customers can pick in "Customize"
+products    ← the baskets
+variants    ← the sizes each basket comes in
+items       ← the materials customers can pick in "Customize"
 ```
 
-**After any change, run this from the project folder:**
+**Edit the sheets in Drive. Then, from the project folder, run one command:**
 
 ```bash
-npm run content:import
+npm run sync
 ```
 
-It checks every row and tells you exactly what is wrong before it writes
-anything. If it says `✓ Imported…`, you're good — then `npm run build` (or push
-to deploy) to see it live.
+That pulls all three sheets straight down from Drive, checks every row, and
+rebuilds the site's data. No downloading, no dragging files around. Then
+`npm run dev` (or push to deploy) to see it live.
 
-> Opening these in Excel: use **File → Open** and choose UTF-8 encoding, or the
-> accented characters (é, –, ’) will look wrong. Google Sheets handles it
-> automatically, and is the safer choice.
+If a row is wrong it stops before writing anything and tells you the sheet, the
+line number and what to fix.
 
 ---
 
-## If you edit the sheets in Google Drive
+## One-time setup
 
-**This is the part that catches everyone.** The sheet in Drive and the file in
-`content/` are two separate copies. Nothing in this project talks to Google, so
-changing a price in Drive does *nothing* to the site until the file comes down
-onto this computer. `content:import` only ever reads `content/products.csv`
-right here — and it rebuilds everything from that file every single time, so
-"the row is already imported" is never the reason a change didn't show up. The
-reason is always that the file on disk still has the old value.
+`npm run sync` reads the three sheet links from `content/sheets.json`. Those are
+already filled in. The only thing each sheet needs is to be readable without
+signing in:
 
-So: download, then pull.
+> In the sheet: **Share → General access → Anyone with the link → Viewer**
 
-1. In the sheet: **File → Download → Comma-separated values (.csv)**
-2. From the project folder:
+Viewer is read-only. Someone who had the link could read your basket list — which
+is the same list published on your website — but nobody can change it.
+
+If you skip this, `npm run sync` stops with:
+
+```
+✖ Baskets is not readable without signing in, so Google would not hand over the data.
+```
+
+### If you ever make a new sheet
+
+Copy the whole address bar and paste it into `content/sheets.json` in place of
+the old link. A bare sheet ID works too.
+
+### The other two options
 
 ```bash
-npm run content:pull
+npm run sync -- --dry       # fetch and check everything, write nothing
+npm run sync -- --offline   # rebuild from the last download, no internet needed
 ```
 
-It looks in your Downloads folder (then Desktop), works out which sheet each CSV
-came from by reading its header row — so the name Google gives it doesn't
-matter — shows you exactly what's about to change, puts the files in place and
-runs the import for you.
+`--dry` is the safe way to see whether an edit is valid before it lands.
 
-```
-  products - Sheet1 (1).csv · downloaded just now
-  Baskets    1 edited
-    ~ the-glow-hour
-        price: 6400 → 7200
-```
+### What's in /content afterwards
 
-If it says **no change**, your download is from before you made the edit.
-Download it again.
-
-Useful variations:
-
-```bash
-npm run content:pull -- --dry              # show the changes, write nothing
-npm run content:pull -- ~/Downloads/x.csv  # use this exact file
-npm run content:pull -- --no-import        # put files in place, import later
-```
-
-The previous version of each file is kept in `content/.backups/` — the last ten
-of each — so a bad pull is always undoable.
-
-### Which price do I change?
-
-Only baskets **without** sizes take their price from `products.csv`. Everything
-with sizes gets its price from `variants.csv`, and the `price` column in
-`products.csv` is left blank on purpose so there's only ever one place a number
-lives. Editing the blank one does nothing.
-
-| Basket has sizes? | Change the price in |
-| --- | --- |
-| Yes | `variants.csv`, on the row for that size |
-| No | `products.csv`, the `price` column |
-
-### Going back the other way
-
-`npm run content:export` rewrites the CSVs **from the code**. Never run it
-straight after downloading from Drive — it will overwrite what you just pulled.
+Every sync writes a copy of each sheet into `content/*.csv`. **Those are a
+snapshot, not something to edit** — the next sync overwrites them. They exist so
+you can see in a git diff exactly what changed, and so `--offline` has something
+to build from. The previous ten copies are kept in `content/.backups/`.
 
 ---
 
 ## The three ideas, and how they differ
 
-| | What it answers | How many per basket | Where you edit it |
+| | What it answers | How many per basket | Which sheet |
 | --- | --- | --- | --- |
-| **Category** | *What kind of basket is this?* | Exactly one | `products.csv`, `category` column |
-| **Occasion** | *When would you send it?* | As many as fit | `products.csv`, `occasions` column |
-| **Variant** | *Which size am I buying?* | One row each in `variants.csv` | `variants.csv` |
+| **Category** | *What kind of basket is this?* | Exactly one | `products`, `category` column |
+| **Occasion** | *When would you send it?* | As many as fit | `products`, `occasions` column |
+| **Variant** | *Which size am I buying?* | One row each | `variants` |
 
 A basket is **one** category — Self-Care *or* Romance, never both. It can be for
 **many** occasions — the same self-care basket works for a birthday, Mother's Day
@@ -105,7 +79,7 @@ and just-because.
 
 ## Adding a basket
 
-Add one row to `products.csv`. Columns:
+Add one row to the **products** sheet. Columns:
 
 | Column | Required | Notes |
 | --- | --- | --- |
@@ -139,7 +113,7 @@ Add one row to `products.csv`. Columns:
 
 ## Adding variants (sizes)
 
-One row per size in `variants.csv`:
+One row per size in the **variants** sheet:
 
 ```
 productSlug,id,name,price,note,includes,available,isDefault
@@ -147,8 +121,8 @@ bridal-glow,classic,Classic,12500,6–8 items,,yes,yes
 bridal-glow,deluxe,Deluxe,15000,9–12 items,,yes,no
 ```
 
-- `productSlug` must match the `slug` in `products.csv` exactly. A typo here is
-  the most common mistake, and the import will catch it.
+- `productSlug` must match the `slug` in the products sheet exactly. A typo here
+  is the most common mistake, and the sync will catch it.
 - `price` is the **full price**, not a difference. What you type is what the
   customer pays.
 - `isDefault` — mark exactly one `yes`. That's the size selected when the page
@@ -156,19 +130,28 @@ bridal-glow,deluxe,Deluxe,15000,9–12 items,,yes,no
 - `available` — set `no` for a size you've run out of. It shows greyed out with
   "Sold out" instead of disappearing, so people can see it exists.
 - `includes` — leave blank and the size uses the basket's own list. Fill it in
-  only when a size genuinely holds different things; the product page then shows
-  that list when the size is chosen.
+  only when a size genuinely holds different things.
 
-**A basket doesn't need variants.** Leave it out of `variants.csv` entirely, put
-a number in the `price` column of `products.csv`, and it's a single-price basket
-with no size chooser.
+**A basket doesn't need variants.** Leave it out of the variants sheet entirely,
+put a number in the `price` column of products, and it's a single-price basket
+with no size chooser. `Lift the Lid` and `The Glow Hour` both work this way.
+
+### Which price do I change?
+
+| Basket has sizes? | Change the price in |
+| --- | --- |
+| Yes | **variants**, on the row for that size |
+| No | **products**, the `price` column |
+
+Baskets with sizes leave `products.price` blank on purpose, so there's only ever
+one place a number lives. Editing the blank one does nothing.
 
 ### Why not colours as well as sizes?
 
 Because 4 sizes × 3 colours is 12 combinations to price, photograph and keep
 track of. For hand-made work that's a lot of admin for very little gain. If
 someone wants ivory instead of blush, they say so in the "Anything to swap or
-add?" box and it comes through on WhatsApp. If colour ever becomes the main thing
+add?" box and it comes through in your DMs. If colour ever becomes the main thing
 that varies, change `variantLabel` to `Colour` and use the variant rows for that
 instead — one axis, whichever one matters most.
 
@@ -176,8 +159,8 @@ instead — one axis, whichever one matters most.
 
 ## Adding materials (the Customize page)
 
-`items.csv` is your buckets, flowers, candles, chocolates — the things a customer
-picks when building their own basket.
+The **items** sheet is your buckets, flowers, candles, chocolates — the things a
+customer picks when building their own basket.
 
 ```
 id,name,group,price,image,imageAlt,available
@@ -186,18 +169,18 @@ peony,Preserved peony,Bloom,2100,peony-01.jpg,Three pink peonies,yes
 
 - `group` must be one of: `Pamper`, `Sweet`, `Keepsake`, `Bloom`. These are the
   tabs on the Customize page.
-- `available` — set `no` to hide something you're out of. It stays in the
-  spreadsheet so you don't lose the price.
+- `available` — set `no` to hide something you're out of. It stays in the sheet
+  so you don't lose the price.
 
 **Materials and baskets are different things.** The same candle appears twice:
-once in `items.csv` (a customer can add it) and once in a basket's `includes`
-(it's already in that basket). That's expected.
+once in items (a customer can add it) and once in a basket's `includes` (it's
+already in that basket). That's expected.
 
 ---
 
 ## Photos
 
-Put your photo files in `public/images/`, then use the filename in the CSV:
+Put your photo files in `public/images/`, then use the filename in the sheet:
 
 ```
 images: bridal-glow-01.jpg|Silk robe and pearl pins in a cream box;bridal-glow-02.jpg|Close-up of the ribbon
@@ -209,11 +192,13 @@ images: bridal-glow-01.jpg|Silk robe and pearl pins in a cream box;bridal-glow-0
   Google reads. Describe what's in the shot, not "basket photo 1".
 - Name files after the basket so they're easy to find later.
 
+Photos live in the project, not in Drive. `npm run sync` doesn't move images.
+
 ---
 
 ## Changing categories or occasions
 
-These are deliberately not in the spreadsheet — adding one means a new page, new
+These are deliberately not in the sheets — adding one means a new page, new
 navigation and new SEO, so it should be a considered change.
 
 **To add or rename a category**, open `lib/content/products.ts` and edit:
@@ -226,13 +211,12 @@ export const categories = [
 ```
 
 Then add the same `slug` to `CategorySlug` in `lib/types.ts`, and to the
-`CATEGORIES` list at the top of `scripts/content-import.mjs` so the import
-accepts it.
+`CATEGORIES` list at the top of `scripts/sync.mjs` so the sync accepts it.
 
 **To add an occasion**, open `lib/content/occasions.ts` and copy an existing
 block — it needs a `slug`, `name`, `line`, `blurb`, `emoji`, `accent` and an
 `image`. Add the slug to `OccasionSlug` in `lib/types.ts` and to `OCCASIONS` in
-the import script. A landing page, navigation entry and sitemap entry all appear
+`scripts/sync.mjs`. A landing page, navigation entry and sitemap entry all appear
 automatically.
 
 Tell me if you'd rather I did these — they're three files each and easy to get
@@ -240,28 +224,19 @@ half-right.
 
 ---
 
-## When the import complains
+## When the sync complains
 
 It stops before writing anything and lists each problem with a line number:
 
 ```
-✖ Import stopped. 2 problems to fix:
+✖ Sync stopped. 2 problems to fix in your sheets:
 
   • products.csv line 6: unknown category "selfcare". Allowed: signature, self-care, …
   • variants.csv: rows reference productSlug "bridal-glo", which is not in products.csv
+
+Nothing was written. Fix those rows in Drive and run it again.
 ```
 
-Fix those rows and run it again. Warnings (a missing alt text, a basket with no
-occasions) are printed but don't block the import.
-
----
-
-## Going the other way
-
-```bash
-npm run content:export
-```
-
-Rewrites the three CSVs from whatever the site currently holds. Useful if
-somebody edited the code directly, or if you want a clean sheet after I've added
-baskets for you.
+The line number is the row number in the sheet. Fix it in Drive and run
+`npm run sync` again. Warnings (a missing alt text, a basket with no occasions)
+are printed but don't block.

@@ -68,7 +68,7 @@ export function CustomizeTeaser() {
           eyebrow="The configurator"
           title="Make it uniquely"
           script="theirs."
-          lede="Size, mood, wrapping, and a note in your words. Change anything and the basket updates as you go — then send it straight to us on WhatsApp."
+          lede="Size, mood, wrapping, and a note in your words. Change anything and the basket updates as you go — then send it straight to us on Instagram."
           align="center"
           tone="light"
         />

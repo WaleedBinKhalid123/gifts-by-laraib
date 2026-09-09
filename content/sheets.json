@@ -1,0 +1,7 @@
+{
+  "_comment": "The address bar of each Google Sheet. Each one needs Share -> General access -> Anyone with the link -> Viewer, or Google sends its sign-in page instead of your data.",
+
+  "products": "https://docs.google.com/spreadsheets/d/1CHj734khKtjN8_BMz1kvwVCnH9YkxBiZ_sHJZK_vDGE/edit",
+  "variants": "https://docs.google.com/spreadsheets/d/1wl7KE6KXbaSQQLHlLWJYLJBd-80s7SGdSu3tJR--SPA/edit",
+  "items":    "https://docs.google.com/spreadsheets/d/10podpf90v6O7fHVk2Lcyc5NG2nllFKKIS_WEnPyfxgo/edit"
+}

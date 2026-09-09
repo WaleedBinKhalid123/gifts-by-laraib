@@ -1,12 +1,12 @@
 /**
  * GENERATED FILE — DO NOT EDIT BY HAND.
  *
- * Source of truth is the spreadsheet in /content. To change anything here:
- *   1. edit the CSV
- *   2. run `npm run content:import`
- *   3. commit both the CSV and this file
+ * Source of truth is the Google Sheet in Drive. To change anything here:
+ *   1. edit the sheet
+ *   2. run `npm run sync`
+ *   3. commit this file
  *
- * Hand edits are overwritten on the next import.
+ * Hand edits are overwritten on the next sync.
  */
 
 import type { BuilderItem } from '@/lib/types';

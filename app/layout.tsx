@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { WhatsAppFab } from '@/components/layout/WhatsAppFab';
+import { InstagramFab } from '@/components/layout/InstagramFab';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { site } from '@/lib/site';
 import { REVEAL_ENGINE } from '@/lib/reveal-engine';
@@ -74,11 +74,10 @@ const orgSchema = {
   image: `${site.url}/og-image.jpg`,
   logo: `${site.url}/logo.png`,
   email: site.email,
-  telephone: `+${site.whatsapp.number}`,
   priceRange: 'Rs 2,900 – Rs 15,000',
   address: { '@type': 'PostalAddress', addressLocality: site.city, addressCountry: 'PK' },
   areaServed: 'Pakistan',
-  sameAs: [site.instagram.url, site.facebook],
+  sameAs: [site.instagram.url],
   openingHours: 'Mo-Sa 11:00-20:00',
 };
 
@@ -117,7 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
 
         <Footer />
-        <WhatsAppFab />
+        <InstagramFab />
       </body>
     </html>
   );

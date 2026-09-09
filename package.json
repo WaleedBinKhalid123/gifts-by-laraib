@@ -11,11 +11,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "sync": "node scripts/sync.mjs",
     "typecheck": "tsc --noEmit",
-    "images": "node scripts/fetch-images.mjs",
-    "content:import": "node scripts/content-import.mjs",
-    "content:pull": "node scripts/content-pull.mjs",
-    "content:export": "node scripts/content-export.mjs"
+    "images": "node scripts/fetch-images.mjs"
   },
   "dependencies": {
     "@fontsource-variable/cormorant-garamond": "^5.1.0",

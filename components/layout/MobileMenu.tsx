@@ -5,9 +5,10 @@ import { X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { site } from '@/lib/site';
 import { occasions } from '@/lib/content/occasions';
-import { waGeneral } from '@/lib/whatsapp';
+import { instagramProfile } from '@/lib/order';
+import { InstagramGlyph } from '@/components/ui/InstagramGlyph';
 import { useOverlay } from '@/lib/useOverlay';
-import { DottedRule, HeartMark } from '@/components/ui/Ornament';
+import { DottedRule } from '@/components/ui/Ornament';
 import { cn } from '@/lib/utils';
 
 export function MobileMenu({ onClose }: { onClose: () => void }) {
@@ -90,17 +91,17 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
 
         <div className="mt-auto pt-10 rise-in" style={{ animationDelay: '370ms' }}>
           <a
-            href={waGeneral()}
+            href={instagramProfile()}
             target="_blank"
             rel="noopener noreferrer"
             onClick={onClose}
-            className="flex h-14 w-full items-center justify-center gap-2 rounded-full bg-wine-700 text-[0.9375rem] font-medium text-cream"
+            className="flex h-14 w-full items-center justify-center gap-2.5 rounded-full bg-[linear-gradient(120deg,#F9A245_0%,#E8446E_45%,#C42FA0_78%,#8B3AC4_100%)] text-[0.9375rem] font-medium text-white"
           >
-            <HeartMark className="h-4 w-4" />
-            Order on WhatsApp
+            <InstagramGlyph className="h-[18px] w-[18px]" />
+            Order on Instagram
           </a>
           <p className="mt-4 text-center text-[0.8125rem] text-ink-muted">
-            {site.whatsapp.display} · {site.hours}
+            {site.instagram.display} · {site.hours}
           </p>
         </div>
       </div>

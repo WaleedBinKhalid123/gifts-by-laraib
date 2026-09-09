@@ -50,17 +50,13 @@ export const site = {
   currency: 'PKR',
 
   /* ---- REPLACE THESE ---- */
-  whatsapp: {
-    /** International format, digits only. Placeholder — swap for the real number. */
-    number: '923001234567',
-    display: '+92 300 123 4567',
-  },
   email: 'hello@giftsbylaraib.com',
   instagram: {
-    handle: '@giftsbylaraib',
-    url: 'https://instagram.com/giftsbylaraib',
+    /** Username only — no @. Used to build both the profile and DM links. */
+    handle: 'gifts.by.laraib',
+    url: 'https://www.instagram.com/gifts.by.laraib/',
+    display: '@gifts.by.laraib',
   },
-  facebook: 'https://facebook.com/giftsbylaraib',
   /* ----------------------- */
 
   city: 'Lahore',

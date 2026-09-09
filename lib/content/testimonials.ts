@@ -8,7 +8,7 @@ export const testimonials: Testimonial[] = [
     occasion: 'Sister’s birthday',
     rating: 5,
     quote:
-      'I sent this to my sister in Karachi and she called me crying. Laraib let me swap two things over WhatsApp at 11pm and still delivered on time. The handwriting on the card genuinely looked like mine.',
+      'I sent this to my sister in Karachi and she called me crying. Laraib let me swap two things over Instagram at 11pm and still delivered on time. The handwriting on the card genuinely looked like mine.',
   },
   {
     id: 't2',

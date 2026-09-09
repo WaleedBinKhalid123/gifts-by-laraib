@@ -10,7 +10,7 @@ import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: `Talk to ${site.name} about a customized gift basket. WhatsApp ${site.whatsapp.display}, email ${site.email}, or send an enquiry — we reply to every message ourselves.`,
+  description: `Talk to ${site.name} about a customized gift basket. Message ${site.instagram.display} on Instagram, email ${site.email}, or send an enquiry — we reply to every message ourselves.`,
   alternates: { canonical: '/contact' },
   openGraph: { title: `Contact · ${site.name}`, url: `${site.url}/contact` },
 };
@@ -42,7 +42,7 @@ export default function ContactPage() {
             <div>
               <Reveal>
                 <a
-                  href={`https://wa.me/${site.whatsapp.number}`}
+                  href={site.instagram.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group block rounded-[1.75rem] bg-wine-900 p-7 text-blush-200 transition-shadow duration-500 hover:shadow-float"
@@ -51,14 +51,14 @@ export default function ContactPage() {
                     Prefer to just message?
                   </p>
                   <p className="mt-4 font-display text-[1.75rem] font-light text-cream">
-                    {site.whatsapp.display}
+                    {site.instagram.display}
                   </p>
                   <p className="mt-3 text-[0.9375rem] leading-relaxed text-blush-200/70">
-                    WhatsApp is where almost every order starts. Send a voice note if it&apos;s
-                    easier — we genuinely don&apos;t mind.
+                    Instagram is where almost every order starts. Send a voice note or just
+                    point at a photo you like — we genuinely don&apos;t mind.
                   </p>
                   <span className="mt-6 inline-flex items-center gap-2 text-[0.8125rem] uppercase tracking-[0.18em] text-cream">
-                    <span className="link-underline">Open WhatsApp</span>
+                    <span className="link-underline">Open Instagram</span>
                   </span>
                 </a>
               </Reveal>

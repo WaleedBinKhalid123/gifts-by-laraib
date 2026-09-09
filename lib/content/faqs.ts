@@ -3,7 +3,7 @@ import type { Faq } from '@/lib/types';
 export const faqs: Faq[] = [
   {
     q: 'Can I change what goes inside a basket?',
-    a: 'Almost always, yes. Every basket on the site is a starting point. Tell us what to swap, add or leave out on WhatsApp and we will confirm the adjusted price before anything is made.',
+    a: 'Almost always, yes. Every basket on the site is a starting point. Tell us what to swap, add or leave out on Instagram and we will confirm the adjusted price before anything is made.',
   },
   {
     q: 'How far in advance should I order?',
@@ -23,11 +23,11 @@ export const faqs: Faq[] = [
   },
   {
     q: 'How do I pay?',
-    a: 'Bank transfer, Easypaisa or JazzCash once your order is confirmed on WhatsApp. Cash on delivery is available within Lahore. Corporate orders are invoiced with standard payment terms.',
+    a: 'Bank transfer, Easypaisa or JazzCash once your order is confirmed on Instagram. Cash on delivery is available within Lahore. Corporate orders are invoiced with standard payment terms.',
   },
   {
     q: 'Do you do corporate or bulk orders?',
-    a: 'From 10 units to 500. We can match your brand colours, print your logo on the card and deliver in scheduled batches. Email or WhatsApp us and we will send a quote within a day.',
+    a: 'From 10 units to 500. We can match your brand colours, print your logo on the card and deliver in scheduled batches. Email or message us on Instagram and we will send a quote within a day.',
   },
   {
     q: 'What if something arrives damaged?',

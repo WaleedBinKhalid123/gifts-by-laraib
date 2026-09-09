@@ -1,12 +1,12 @@
 /**
  * GENERATED FILE — DO NOT EDIT BY HAND.
  *
- * Source of truth is the spreadsheet in /content. To change anything here:
- *   1. edit the CSV
- *   2. run `npm run content:import`
- *   3. commit both the CSV and this file
+ * Source of truth is the Google Sheet in Drive. To change anything here:
+ *   1. edit the sheet
+ *   2. run `npm run sync`
+ *   3. commit this file
  *
- * Hand edits are overwritten on the next import.
+ * Hand edits are overwritten on the next sync.
  */
 
 import type { Product } from '@/lib/types';
@@ -1052,7 +1052,7 @@ export const productList: Product[] = [
     "slug": "the-glow-hour",
     "tagline": "Everything for the hour before she walks out the door",
     "description": "Blush palette, glosses, hand cream and a sheet mask packed into a square wicker tray, with roses in one corner and a little pink bear in the other. It's the basket for the friend who does her own glam and still wants somebody to make a fuss of her. Tell us her shades and we'll pick them — otherwise we choose the ones that suit almost everyone.",
-    "price": 6400,
+    "price": 4500,
     "images": [
       {
         "id": "glow-hour-01.jpg",
@@ -1115,6 +1115,7 @@ export const productList: Product[] = [
     "customizable": true,
     "available": true,
     "featured": true,
-    "leadTimeDays": 2
+    "leadTimeDays": 2,
+    "compareAtPrice": 5000
   }
 ];

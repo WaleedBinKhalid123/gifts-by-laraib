@@ -26,7 +26,7 @@ const SECTIONS = [
     p: [
       'We ship anywhere in Pakistan via Leopards or TCS, typically arriving in 2–4 working days.',
       'Nationwide delivery is Rs 550, or free on orders over ' + formatPKR(site.delivery.freeOver) + '.',
-      'Tracking is sent to you on WhatsApp the moment the parcel is picked up.',
+      'Tracking is sent to you on Instagram the moment the parcel is picked up.',
     ],
   },
   {

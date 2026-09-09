@@ -15,13 +15,13 @@ const SECTIONS = [
     h: 'The short version',
     p: [
       'This website does not have accounts, a checkout or a database. Nothing you type into a form here is stored on our servers, because there is no server storing it.',
-      'When you press an order or enquiry button, your answers are assembled into a WhatsApp message on your own device. Nothing is sent until you press send in WhatsApp.',
+      'When you press an order or enquiry button, your answers are assembled on your own device and copied to your clipboard. Nothing reaches us until you paste it into Instagram and press send.',
     ],
   },
   {
     h: 'What we do end up holding',
     p: [
-      'Once you message us, we hold whatever you send: your name, phone number, delivery address, card message and order details. We keep this in our WhatsApp and order records so we can make and deliver your gift, and so we can help if you order again.',
+      'Once you message us, we hold whatever you send: your name, phone number, delivery address, card message and order details. We keep this in our Instagram inbox and order records so we can make and deliver your gift, and so we can help if you order again.',
       'We do not sell, rent or share this with anyone, other than the courier who needs the delivery address.',
     ],
   },
@@ -42,7 +42,7 @@ const SECTIONS = [
   {
     h: 'Your choices',
     p: [
-      `You can ask us to delete your details at any time by messaging ${site.whatsapp.display} or emailing ${site.email}. We will confirm once it is done.`,
+      `You can ask us to delete your details at any time by messaging ${site.instagram.display} on Instagram or emailing ${site.email}. We will confirm once it is done.`,
       'Newsletter emails, if you subscribe, always carry a one-click unsubscribe.',
     ],
   },

@@ -37,7 +37,7 @@ export interface IncludedItem {
  * Deliberately a single axis (size), not a size × colour grid. A grid means
  * pricing, photographing and stock-checking every combination, which is the
  * wrong shape for hand-made work. Anything else a customer wants is a note they
- * add on WhatsApp.
+ * add on Instagram.
  *
  * `price` is absolute, not a delta — what you type is what the customer pays,
  * with no mental arithmetic when you are editing a spreadsheet at 11pm.

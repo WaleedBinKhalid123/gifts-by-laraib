@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { useParallax } from '@/lib/useParallax';
 import { RevealText, Reveal } from '@/components/ui/Reveal';
 import { DottedRule } from '@/components/ui/Ornament';
-import { waGeneral } from '@/lib/whatsapp';
+import { instagramProfile } from '@/lib/order';
 import { photo } from '@/lib/utils';
 
 export function FinalCTA() {
@@ -69,8 +69,8 @@ export function FinalCTA() {
                 <Button href="/customize" size="lg" className="bg-cream text-wine-800 hover:bg-blush-100" magnetic>
                   Create Your Basket
                 </Button>
-                <Button href={waGeneral()} external variant="wa" size="lg">
-                  Chat on WhatsApp
+                <Button href={instagramProfile()} external variant="ig" size="lg">
+                  Message on Instagram
                 </Button>
               </div>
             </Reveal>
