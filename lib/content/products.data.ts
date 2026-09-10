@@ -844,7 +844,7 @@ export const productList: Product[] = [
     "includes": [
       {
         "name": "Twelve hand-picked pieces",
-        "note": "Chosen with you over Instagram"
+        "note": "Chosen with you over WhatsApp"
       },
       {
         "name": "Preserved floral accent"
@@ -1052,7 +1052,7 @@ export const productList: Product[] = [
     "slug": "the-glow-hour",
     "tagline": "Everything for the hour before she walks out the door",
     "description": "Blush palette, glosses, hand cream and a sheet mask packed into a square wicker tray, with roses in one corner and a little pink bear in the other. It's the basket for the friend who does her own glam and still wants somebody to make a fuss of her. Tell us her shades and we'll pick them — otherwise we choose the ones that suit almost everyone.",
-    "price": 6400,
+    "price": 4400,
     "images": [
       {
         "id": "glow-hour-01.jpg",
@@ -1115,6 +1115,83 @@ export const productList: Product[] = [
     "customizable": true,
     "available": true,
     "featured": true,
-    "leadTimeDays": 2
+    "leadTimeDays": 2,
+    "compareAtPrice": 5000
+  },
+  {
+    "id": "p-blush-velvet-box",
+    "name": "Blush Velvet Box",
+    "slug": "blush-velvet-box",
+    "tagline": "Roses, chocolate, and a few things she'll actually use",
+    "description": "A velvet-soft pink box filled with soap roses and gypsophila, with the gifts tucked in among them — a cube-cap perfume, a cherry lip oil, burgundy press-on nails, hand cream, a fruit paper soap tube, and two KitKats standing on skewers because not every gift has to be serious. Finished with a black satin bow.",
+    "price": 6000,
+    "images": [
+      {
+        "id": "blush-velvet-box-01.jpg",
+        "alt": "Light pink velvet hat box filled with crimson and blush soap roses, a gold-capped perfume, press-on nails, a paper soap tube and two KitKat bars"
+      }
+    ],
+    "category": "celebration",
+    "occasions": [
+      "birthday",
+      "just-because",
+      "valentines",
+      "anniversary"
+    ],
+    "recipients": [
+      "for-her"
+    ],
+    "tags": [
+      "hat box",
+      "flowers included",
+      "chocolate",
+      "perfume",
+      "velvet"
+    ],
+    "includes": [
+      {
+        "name": "Light pink velvet hat box",
+        "note": "With lid"
+      },
+      {
+        "name": "Soap roses",
+        "note": "8 heads, crimson and blush"
+      },
+      {
+        "name": "White gypsophila"
+      },
+      {
+        "name": "Cube-cap perfume"
+      },
+      {
+        "name": "Cherry lip oil"
+      },
+      {
+        "name": "Merrycolor press-on nails",
+        "note": "Burgundy, 24 pc"
+      },
+      {
+        "name": "Meidián fruit hand cream",
+        "note": "30g"
+      },
+      {
+        "name": "Fruit paper soap tube"
+      },
+      {
+        "name": "KitKat",
+        "note": "2 bars, skewer-mounted"
+      },
+      {
+        "name": "Black satin ribbon bow"
+      },
+      {
+        "name": "Handwritten card"
+      }
+    ],
+    "customizable": true,
+    "available": true,
+    "featured": true,
+    "leadTimeDays": 2,
+    "compareAtPrice": 6500
   }
 ];
