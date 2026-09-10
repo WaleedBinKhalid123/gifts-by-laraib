@@ -1123,12 +1123,16 @@ export const productList: Product[] = [
     "name": "Blush Velvet Box",
     "slug": "blush-velvet-box",
     "tagline": "Roses, chocolate, and a few things she'll actually use",
-    "description": "A velvet-soft pink box filled with soap roses and gypsophila, with the gifts tucked in among them — a cube-cap perfume, a cherry lip oil, burgundy press-on nails, hand cream, a fruit paper soap tube, and two KitKats standing on skewers because not every gift has to be serious. Finished with a black satin bow.",
+    "description": "A velvet-soft pink box filled with soap roses and gypsophila, with the gifts tucked in among them — a cube-cap perfume, a cherry lip oil, burgundy press-on nails, hand cream, a fruit paper soap tube, and two KitKats standing on skewers because not every gift has to be serious. It arrives with the lid on and a black satin bow.",
     "price": 6000,
     "images": [
       {
         "id": "blush-velvet-box-01.jpg",
-        "alt": "Light pink velvet hat box filled with crimson and blush soap roses, a gold-capped perfume, press-on nails, a paper soap tube and two KitKat bars"
+        "alt": "Large pink velvet hat box filled with roses and gifts, its lid resting beside it"
+      },
+      {
+        "id": "blush-velvet-box-02.jpg",
+        "alt": "Overhead view of crimson and blush soap roses around a gold-capped perfume, press-on nails, a paper soap tube and two KitKat bars"
       }
     ],
     "category": "celebration",
@@ -1150,7 +1154,7 @@ export const productList: Product[] = [
     ],
     "includes": [
       {
-        "name": "Light pink velvet hat box",
+        "name": "Large pink velvet hat box",
         "note": "With lid"
       },
       {
