@@ -99,7 +99,7 @@ export function ProductGrid({
   return (
     <div>
       {showFilters ? (
-        <div className="-mx-gutter border-y border-blush-200 bg-cream px-gutter py-3">
+        <div className="sticky top-[62px] z-30 -mx-gutter border-y border-blush-200 bg-cream/92 px-gutter py-3 backdrop-blur-md">
           <div className="flex items-center gap-3">
             <div className="rail no-scrollbar flex flex-1 items-center gap-2 overflow-x-auto">
               <Pill active={category === 'all'} onClick={() => setCategory('all')}>

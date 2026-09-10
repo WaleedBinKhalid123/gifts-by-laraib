@@ -22,26 +22,15 @@ export function Navbar() {
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
-  /**
-   * Only the homepage opens with a full-bleed hero built to sit under a bare
-   * navbar. Every other page starts with content right under the header, so a
-   * transparent bar there just puts nav links on top of photographs.
-   */
-  const overHero = pathname === '/' && !condensed;
-
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50">
         <div
           className={cn(
             'border-b transition-[background-color,box-shadow,border-color] duration-500 ease-expo',
-            overHero
-              ? 'border-transparent bg-transparent'
-              : // Frosted, but opaque enough that a photograph underneath never
-                // reads as text through the bar.
-                'border-blush-200 bg-cream/[0.97] shadow-[0_1px_0_rgba(122,15,60,0.05)] ' +
-                'supports-[backdrop-filter]:bg-cream/[0.95] supports-[backdrop-filter]:backdrop-blur-2xl ' +
-                'supports-[backdrop-filter]:backdrop-saturate-150',
+            condensed
+              ? 'border-blush-200 bg-cream/95 shadow-[0_1px_0_rgba(122,15,60,0.05)] supports-[backdrop-filter]:bg-cream/80 supports-[backdrop-filter]:backdrop-blur-md'
+              : 'border-transparent bg-transparent',
           )}
         >
           <nav

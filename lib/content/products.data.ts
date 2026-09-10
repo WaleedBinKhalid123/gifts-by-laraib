@@ -844,7 +844,7 @@ export const productList: Product[] = [
     "includes": [
       {
         "name": "Twelve hand-picked pieces",
-        "note": "Chosen with you over WhatsApp"
+        "note": "Chosen with you over Instagram"
       },
       {
         "name": "Preserved floral accent"
@@ -1052,7 +1052,7 @@ export const productList: Product[] = [
     "slug": "the-glow-hour",
     "tagline": "Everything for the hour before she walks out the door",
     "description": "Blush palette, glosses, hand cream and a sheet mask packed into a square wicker tray, with roses in one corner and a little pink bear in the other. It's the basket for the friend who does her own glam and still wants somebody to make a fuss of her. Tell us her shades and we'll pick them — otherwise we choose the ones that suit almost everyone.",
-    "price": 4500,
+    "price": 6400,
     "images": [
       {
         "id": "glow-hour-01.jpg",
@@ -1115,7 +1115,6 @@ export const productList: Product[] = [
     "customizable": true,
     "available": true,
     "featured": true,
-    "leadTimeDays": 2,
-    "compareAtPrice": 5000
+    "leadTimeDays": 2
   }
 ];
