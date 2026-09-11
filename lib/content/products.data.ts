@@ -1322,5 +1322,69 @@ export const productList: Product[] = [
     "available": true,
     "featured": false,
     "leadTimeDays": 1
+  },
+  {
+    "id": "p-chaand-raat",
+    "name": "Chaand Raat",
+    "slug": "chaand-raat",
+    "tagline": "Twelve bangles, and everything else you'd hand a girl the night before Eid",
+    "description": "A soft pink basket of bangles, earrings, chocolate, a face mask and a small teddy, gathered in gypsophila and tied under pink tulle with two satin bows. The bangles are the point — twelve of them, the way they're meant to be given. Everything else is what you add so it isn't only bangles.",
+    "price": 4000,
+    "images": [
+      {
+        "id": "chaand-raat-01.jpg",
+        "alt": "Soft pink basket of bangles, a teddy and white gypsophila wrapped in pink tulle and tied with two satin bows"
+      }
+    ],
+    "category": "celebration",
+    "occasions": [
+      "eid",
+      "birthday",
+      "just-because",
+      "bridal-shower"
+    ],
+    "recipients": [
+      "for-her"
+    ],
+    "tags": [
+      "bangles",
+      "jewellery",
+      "eid",
+      "chaand raat",
+      "pink",
+      "wrapped"
+    ],
+    "includes": [
+      {
+        "name": "Glass bangles",
+        "note": "12, one set"
+      },
+      {
+        "name": "Earrings"
+      },
+      {
+        "name": "Face mask"
+      },
+      {
+        "name": "Chocolate"
+      },
+      {
+        "name": "Small plush teddy"
+      },
+      {
+        "name": "White gypsophila"
+      },
+      {
+        "name": "Pink tulle wrap",
+        "note": "Two satin bows"
+      },
+      {
+        "name": "Handwritten card"
+      }
+    ],
+    "customizable": true,
+    "available": true,
+    "featured": false,
+    "leadTimeDays": 2
   }
 ];
