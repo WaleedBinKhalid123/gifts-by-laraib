@@ -1197,5 +1197,64 @@ export const productList: Product[] = [
     "featured": true,
     "leadTimeDays": 2,
     "compareAtPrice": 6500
+  },
+  {
+    "id": "p-midnight-rose",
+    "name": "Midnight Rose",
+    "slug": "midnight-rose",
+    "tagline": "Deep burgundy, and one small bear who came to celebrate",
+    "description": "Wine-red roses packed shoulder to shoulder in a matte black box, with white gypsophila threaded between them and a little bear in a party hat sitting in the middle of it all. The black makes the red look darker than it is — which is the whole point. Small enough to carry in one hand, dramatic enough that nobody forgets it.",
+    "price": 2600,
+    "images": [
+      {
+        "id": "midnight-rose-01.jpg",
+        "alt": "Matte black hat box packed with deep burgundy roses and white gypsophila, a small white teddy bear in a pink striped party hat sitting in the centre"
+      }
+    ],
+    "category": "romance",
+    "occasions": [
+      "birthday",
+      "anniversary",
+      "valentines",
+      "just-because"
+    ],
+    "recipients": [
+      "for-her"
+    ],
+    "tags": [
+      "hat box",
+      "flowers included",
+      "teddy",
+      "burgundy",
+      "under 5k"
+    ],
+    "includes": [
+      {
+        "name": "Black hat box",
+        "note": "Matte, with lid"
+      },
+      {
+        "name": "Burgundy roses",
+        "note": "7 heads, hand-set"
+      },
+      {
+        "name": "White gypsophila",
+        "note": "3 sprays"
+      },
+      {
+        "name": "Small white plush bear",
+        "note": "In a party hat"
+      },
+      {
+        "name": "Black pearl accent"
+      },
+      {
+        "name": "Handwritten card"
+      }
+    ],
+    "customizable": true,
+    "available": true,
+    "featured": true,
+    "leadTimeDays": 2
   }
 ];
