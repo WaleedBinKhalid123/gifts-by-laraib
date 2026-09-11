@@ -1324,15 +1324,15 @@ export const productList: Product[] = [
     "leadTimeDays": 1
   },
   {
-    "id": "p-chaand-raat",
-    "name": "Chaand Raat",
-    "slug": "chaand-raat",
+    "id": "p-twelve-bangles",
+    "name": "Twelve Bangles",
+    "slug": "twelve-bangles",
     "tagline": "Twelve bangles, and everything else you'd hand a girl the night before Eid",
     "description": "A soft pink basket of bangles, earrings, chocolate, a face mask and a small teddy, gathered in gypsophila and tied under pink tulle with two satin bows. The bangles are the point — twelve of them, the way they're meant to be given. Everything else is what you add so it isn't only bangles.",
     "price": 4200,
     "images": [
       {
-        "id": "chaand-raat-01.jpg",
+        "id": "twelve-bangals-01.jpg",
         "alt": "Soft pink basket of bangles, a teddy and white gypsophila wrapped in pink tulle and tied with two satin bows"
       }
     ],
@@ -1350,7 +1350,7 @@ export const productList: Product[] = [
       "bangles",
       "jewellery",
       "eid",
-      "chaand raat",
+      "twelve bangals",
       "pink",
       "wrapped"
     ],
