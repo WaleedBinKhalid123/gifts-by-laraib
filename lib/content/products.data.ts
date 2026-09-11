@@ -1256,5 +1256,71 @@ export const productList: Product[] = [
     "available": true,
     "featured": true,
     "leadTimeDays": 2
+  },
+  {
+    "id": "p-roses-and-ramen",
+    "name": "Roses & Ramen",
+    "slug": "roses-and-ramen",
+    "tagline": "For the one who'd rather have noodles than chocolate",
+    "description": "Korean fire noodles, Indonesian mi goreng and two bags of crisps, stacked into a black and gold tray with four burgundy roses across the front and a net veil over the top. It started as a joke gift and turned into one of the ones people ask for by name. Not everyone wants flowers. Some people want Buldak.",
+    "price": 4200,
+    "images": [
+      {
+        "id": "roses-and-ramen-01.jpg",
+        "alt": "Black and gold tray hamper filled with Korean fire noodles, mi goreng and crisps under a net veil, with four burgundy roses across the front"
+      }
+    ],
+    "category": "celebration",
+    "occasions": [
+      "birthday",
+      "just-because",
+      "graduation"
+    ],
+    "recipients": [
+      "for-her",
+      "for-him"
+    ],
+    "tags": [
+      "snacks",
+      "noodles",
+      "spicy",
+      "unisex",
+      "ready to ship"
+    ],
+    "includes": [
+      {
+        "name": "Samyang Buldak Habanero Lime",
+        "note": "2 packs"
+      },
+      {
+        "name": "Noody Cream Carbonara",
+        "note": "Limited edition"
+      },
+      {
+        "name": "Mi ABC mi goreng",
+        "note": "2 packs"
+      },
+      {
+        "name": "Lays Maxx Spicy Kimchi"
+      },
+      {
+        "name": "Lays Wavy BBQ"
+      },
+      {
+        "name": "Burgundy roses",
+        "note": "4 heads"
+      },
+      {
+        "name": "Black and gold tray",
+        "note": "Net veil, gold bow"
+      },
+      {
+        "name": "Handwritten card"
+      }
+    ],
+    "customizable": true,
+    "available": true,
+    "featured": false,
+    "leadTimeDays": 1
   }
 ];
