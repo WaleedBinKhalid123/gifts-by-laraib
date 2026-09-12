@@ -1386,5 +1386,62 @@ export const productList: Product[] = [
     "available": true,
     "featured": false,
     "leadTimeDays": 2
+  },
+  {
+    "id": "p-bear-hug",
+    "name": "Bear Hug",
+    "slug": "bear-hug",
+    "tagline": "A cream teddy, two bars of chocolate, and no occasion required",
+    "description": "A cream teddy holding a small pink heart, two bars of Dairy Milk, and a soft drift of gypsophila and greenery in a white box tied with pink satin. Nothing in it shouts. It's the basket for a friend having a hard week, a thank-you that doesn't need a reason, or the day you just want someone to know you thought of them.",
+    "price": 2500,
+    "images": [
+      {
+        "id": "bear-hug-01.jpg",
+        "alt": "White round box holding a cream teddy bear with a pink heart, two bars of Dairy Milk and a drift of white gypsophila and green foliage, tied with a pink satin bow"
+      }
+    ],
+    "category": "celebration",
+    "occasions": [
+      "just-because",
+      "birthday",
+      "mothers-day"
+    ],
+    "recipients": [
+      "for-her"
+    ],
+    "tags": [
+      "teddy",
+      "chocolate",
+      "gentle",
+      "thinking of you",
+      "white box"
+    ],
+    "includes": [
+      {
+        "name": "Cream plush teddy",
+        "note": "Holding a pink heart"
+      },
+      {
+        "name": "Cadbury Dairy Milk",
+        "note": "2 bars"
+      },
+      {
+        "name": "White gypsophila"
+      },
+      {
+        "name": "Green foliage and blush buds"
+      },
+      {
+        "name": "White hat box",
+        "note": "Pink satin ribbon and bow"
+      },
+      {
+        "name": "Handwritten card"
+      }
+    ],
+    "customizable": true,
+    "available": true,
+    "featured": false,
+    "leadTimeDays": 2
   }
 ];
