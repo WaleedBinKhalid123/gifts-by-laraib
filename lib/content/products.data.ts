@@ -1393,7 +1393,7 @@ export const productList: Product[] = [
     "slug": "bear-hug",
     "tagline": "A cream teddy, two bars of chocolate, and no occasion required",
     "description": "A cream teddy holding a small pink heart, two bars of Dairy Milk, and a soft drift of gypsophila and greenery in a white box tied with pink satin. Nothing in it shouts. It's the basket for a friend having a hard week, a thank-you that doesn't need a reason, or the day you just want someone to know you thought of them.",
-    "price": 2500,
+    "price": 2800,
     "images": [
       {
         "id": "bear-hug-01.jpg",
