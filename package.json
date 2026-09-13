@@ -2,7 +2,7 @@
   "name": "gifts-by-laraib",
   "version": "1.0.0",
   "private": true,
-  "description": "Gifts by Laraib \u2014 customized gift baskets. Premium brand site.",
+  "description": "Gifts by Laraib — customized gift baskets. Premium brand site.",
   "engines": {
     "node": ">=20.9.0"
   },
@@ -19,6 +19,8 @@
     "@fontsource-variable/cormorant-garamond": "^5.1.0",
     "@fontsource-variable/jost": "^5.1.0",
     "@fontsource/parisienne": "^5.1.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.460.0",
     "next": "^16.3.4",

@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from 'next';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -117,6 +119,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <Footer />
         <InstagramFab />
+
+        {/* Vercel's own scripts. Both no-op outside a Vercel deployment, so
+            local development stays quiet and nothing is sent from your laptop. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

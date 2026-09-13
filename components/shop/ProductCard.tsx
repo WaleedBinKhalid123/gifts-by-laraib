@@ -79,7 +79,7 @@ export function ProductCard({
             </span>
 
             {product.customizable ? (
-              <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-cream/92 px-3 py-1.5 text-[0.6875rem] uppercase tracking-[0.14em] text-wine-700 backdrop-blur-sm">
+              <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-cream/90 px-3 py-1.5 text-[0.6875rem] uppercase tracking-[0.14em] text-wine-700 backdrop-blur-sm">
                 <Sparkles className="h-3 w-3 text-gold-400" strokeWidth={1.6} />
                 Customizable
               </span>

@@ -64,7 +64,7 @@ export function BasketPreview({
             {items.map((it) => (
               <li
                 key={it.id}
-                className="pop-in rounded-full bg-cream/92 px-2.5 py-1 text-[0.6875rem] text-wine-800"
+                className="pop-in rounded-full bg-cream/90 px-2.5 py-1 text-[0.6875rem] text-wine-800"
               >
                 {it.name}
               </li>

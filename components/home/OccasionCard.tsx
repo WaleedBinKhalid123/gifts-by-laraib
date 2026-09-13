@@ -21,15 +21,15 @@ export function OccasionCard({ occasion, index }: { occasion: Occasion; index: n
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-wine-900/78 via-wine-900/12 to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-wine-900/80 via-wine-900/10 to-transparent"
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-rose-700/0 transition-colors duration-700 group-hover:bg-rose-700/12"
+            className="absolute inset-0 bg-rose-700/0 transition-colors duration-700 group-hover:bg-rose-700/10"
           />
 
           {/* Emoji chip */}
-          <span className="absolute left-4 top-5 grid h-10 w-10 place-items-center rounded-full bg-cream/92 text-[1.05rem] shadow-petal backdrop-blur-sm transition-transform duration-700 ease-expo group-hover:scale-110">
+          <span className="absolute left-4 top-5 grid h-10 w-10 place-items-center rounded-full bg-cream/90 text-[1.05rem] shadow-petal backdrop-blur-sm transition-transform duration-700 ease-expo group-hover:scale-110">
             <span aria-hidden>{occasion.emoji}</span>
           </span>
 

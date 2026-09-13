@@ -61,6 +61,28 @@ export const getProduct = (slug: string) => products.find((p) => p.slug === slug
 
 export const featuredProducts = () => products.filter((p) => p.featured && p.available);
 
+/**
+ * A photograph we took ourselves, as opposed to a stock-library placeholder.
+ * `photo()` uses the same test: anything not shaped like an Unsplash id is a
+ * file in public/images.
+ */
+export const isOwnPhoto = (p: Product) => Boolean(p.images[0] && !p.images[0].id.startsWith('photo-'));
+
+/**
+ * The homepage line-up: the spotlight first, then the cards under it.
+ *
+ * Real baskets outrank placeholders. Everything here is still driven by the
+ * `featured` column in the sheet — this only decides the order within it, so
+ * as more baskets get photographed they take the homepage over on their own,
+ * and nothing has to be renamed or moved in code.
+ */
+export function homepageFeatured(count = 4): Product[] {
+  const featured = featuredProducts();
+  const own = featured.filter(isOwnPhoto);
+  const stock = featured.filter((p) => !isOwnPhoto(p));
+  return [...own, ...stock].slice(0, count);
+}
+
 export const productsByOccasion = (slug: string) =>
   products.filter((p) => (p.occasions as string[]).includes(slug));
 

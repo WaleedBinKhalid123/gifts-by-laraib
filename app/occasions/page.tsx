@@ -49,7 +49,7 @@ export default function OccasionsPage() {
                         aria-hidden
                         className="absolute inset-0 bg-gradient-to-t from-wine-900/70 via-wine-900/10 to-transparent"
                       />
-                      <span className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-cream/92 text-[1.05rem] backdrop-blur-sm">
+                      <span className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-cream/90 text-[1.05rem] backdrop-blur-sm">
                         <span aria-hidden>{o.emoji}</span>
                       </span>
                       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-5">

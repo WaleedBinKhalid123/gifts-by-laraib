@@ -30,7 +30,7 @@ export function FinalCTA() {
 
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-br from-wine-900/95 via-wine-900/88 to-wine-800/84"
+            className="absolute inset-0 bg-gradient-to-br from-wine-900/95 via-wine-900/90 to-wine-800/85"
           />
           <div
             aria-hidden

@@ -1,7 +1,7 @@
 import Image from '@/components/ui/Img';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { featuredProducts, getProduct } from '@/lib/content/products';
+import { homepageFeatured, priceFrom } from '@/lib/content/products';
 import { ProductCard } from '@/components/shop/ProductCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Button } from '@/components/ui/Button';
@@ -10,10 +10,9 @@ import { DottedRule, HeartMark } from '@/components/ui/Ornament';
 import { formatPKR, photo } from '@/lib/utils';
 
 export function FeaturedBaskets() {
-  const spotlight = getProduct('pink-self-care-basket');
-  const rest = featuredProducts()
-    .filter((p) => p.slug !== spotlight?.slug)
-    .slice(0, 3);
+  // Own photography first — see homepageFeatured(). The first one gets the
+  // spotlight; the next three become the cards.
+  const [spotlight, ...rest] = homepageFeatured(4);
 
   return (
     <section aria-labelledby="featured-heading" className="relative bg-cream py-section">
@@ -86,7 +85,7 @@ export function FeaturedBaskets() {
               <Reveal delay={0.18}>
                 <div className="mt-9 flex flex-wrap items-center gap-5">
                   <span className="font-display text-[1.75rem] text-wine-700">
-                    {formatPKR(spotlight.price)}
+                    {formatPKR(priceFrom(spotlight))}
                   </span>
                   <Button href={`/shop/${spotlight.slug}`} size="lg" magnetic>
                     View Gift
