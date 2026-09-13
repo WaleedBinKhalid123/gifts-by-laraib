@@ -1443,5 +1443,66 @@ export const productList: Product[] = [
     "available": true,
     "featured": false,
     "leadTimeDays": 2
+  },
+  {
+    "id": "p-blush-and-bear",
+    "name": "Blush & Bear",
+    "slug": "blush-and-bear",
+    "tagline": "A whole getting-ready routine, and someone to keep her company",
+    "description": "A blush palette, a lip tint, a little cube perfume and a beauty blender, packed around a pink hooded teddy in a pink wicker basket. It's the size of gift you give a younger sister, a best friend, or anyone who'd rather have five things she'll actually finish than one thing she'll put on a shelf.",
+    "price": 3500,
+    "images": [
+      {
+        "id": "blush-and-bear-01.jpg",
+        "alt": "Pink wicker basket holding a pink hooded teddy bear, a Melle blush palette, a lip tint, a cube perfume and a boxed beauty blender on pink shredded filler"
+      }
+    ],
+    "category": "petite",
+    "occasions": [
+      "birthday",
+      "just-because",
+      "graduation",
+      "valentines"
+    ],
+    "recipients": [
+      "for-her"
+    ],
+    "tags": [
+      "beauty",
+      "teddy",
+      "pink",
+      "under 5k",
+      "ready to ship"
+    ],
+    "includes": [
+      {
+        "name": "Pink hooded plush teddy"
+      },
+      {
+        "name": "Melle blush palette",
+        "note": "4 shades"
+      },
+      {
+        "name": "First lip tint"
+      },
+      {
+        "name": "Cube perfume"
+      },
+      {
+        "name": "Beauty blender",
+        "note": "Boxed"
+      },
+      {
+        "name": "Pink wicker basket",
+        "note": "Black satin bow"
+      },
+      {
+        "name": "Handwritten card"
+      }
+    ],
+    "customizable": true,
+    "available": true,
+    "featured": false,
+    "leadTimeDays": 1
   }
 ];
