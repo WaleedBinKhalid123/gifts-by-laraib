@@ -1504,5 +1504,87 @@ export const productList: Product[] = [
     "available": true,
     "featured": false,
     "leadTimeDays": 1
+  },
+  {
+    "id": "p-light-up-snack-box",
+    "name": "Light Up Snack Box",
+    "slug": "light-up-snack-box",
+    "tagline": "It arrives glowing, and it's full of everything good",
+    "description": "A black gift box with a clear window, strung with warm fairy lights and packed with crisps, chocolate, jellies and a small bear in a knitted hat. The lights stay on when the lid goes on, so it arrives glowing. Finished with black satin and a gold foil card — the most handsome thing we make, and it's full of Kurkure.",
+    "price": 6000,
+    "images": [
+      {
+        "id": "light-up-snack-box-01.jpg",
+        "alt": "Black gift box with a clear window, lit inside with warm fairy lights and filled with crisps, chocolate, jellies and a small teddy bear in a pink knitted hat"
+      },
+      {
+        "id": "light-up-snack-box-02.jpg",
+        "alt": "The same box closed, tied with black satin ribbon and a gold foil Gifts by Laraib thank-you card"
+      }
+    ],
+    "category": "signature",
+    "occasions": [
+      "birthday",
+      "just-because",
+      "graduation",
+      "eid"
+    ],
+    "recipients": [
+      "for-her",
+      "for-him"
+    ],
+    "tags": [
+      "lit box",
+      "snacks",
+      "chocolate",
+      "teddy",
+      "statement gift"
+    ],
+    "includes": [
+      {
+        "name": "Frisky Roll Milky"
+      },
+      {
+        "name": "Pipers Gold chocolate cup cookies"
+      },
+      {
+        "name": "Lays",
+        "note": "3 packs"
+      },
+      {
+        "name": "Kurkure"
+      },
+      {
+        "name": "Peek Freans Smile donut cake"
+      },
+      {
+        "name": "Hilal Ding Dong jelly"
+      },
+      {
+        "name": "Jojo heart-shape sweets"
+      },
+      {
+        "name": "Puffs"
+      },
+      {
+        "name": "Small plush teddy",
+        "note": "Knitted hat"
+      },
+      {
+        "name": "Warm fairy lights",
+        "note": "Battery powered"
+      },
+      {
+        "name": "Black gift box",
+        "note": "Clear window, black satin bow"
+      },
+      {
+        "name": "Gold foil thank-you card"
+      }
+    ],
+    "customizable": true,
+    "available": true,
+    "featured": true,
+    "leadTimeDays": 2
   }
 ];
