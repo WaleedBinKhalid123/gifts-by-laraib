@@ -69,18 +69,38 @@ export const featuredProducts = () => products.filter((p) => p.featured && p.ava
 export const isOwnPhoto = (p: Product) => Boolean(p.images[0] && !p.images[0].id.startsWith('photo-'));
 
 /**
+ * Baskets pinned to the homepage, in order. The first one gets the spotlight —
+ * the largest photograph on the site — and the rest fill the cards beneath it.
+ *
+ * This is a deliberate list rather than a sort, because the spotlight is a
+ * judgement about which photograph is strongest, and no rule can make that
+ * call. A basket named here does not need `featured` set in the sheet.
+ */
+const HOMEPAGE_PINNED = [
+  'blush-and-bear',
+  'blush-velvet-box',
+  'midnight-rose',
+  'light-up-snack-box',
+];
+
+/**
  * The homepage line-up: the spotlight first, then the cards under it.
  *
- * Real baskets outrank placeholders. Everything here is still driven by the
- * `featured` column in the sheet — this only decides the order within it, so
- * as more baskets get photographed they take the homepage over on their own,
- * and nothing has to be renamed or moved in code.
+ * Pinned baskets come first, in the order above. Anything left over is filled
+ * from the `featured` column in the sheet, own photography ahead of stock — so
+ * if a pinned basket is removed or sold out, the homepage still fills itself
+ * rather than leaving a hole.
  */
 export function homepageFeatured(count = 4): Product[] {
-  const featured = featuredProducts();
+  const pinned = HOMEPAGE_PINNED
+    .map((slug) => products.find((p) => p.slug === slug && p.available))
+    .filter((p): p is Product => Boolean(p));
+
+  const featured = featuredProducts().filter((p) => !pinned.includes(p));
   const own = featured.filter(isOwnPhoto);
   const stock = featured.filter((p) => !isOwnPhoto(p));
-  return [...own, ...stock].slice(0, count);
+
+  return [...pinned, ...own, ...stock].slice(0, count);
 }
 
 export const productsByOccasion = (slug: string) =>
