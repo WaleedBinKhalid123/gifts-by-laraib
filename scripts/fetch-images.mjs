@@ -85,9 +85,33 @@ async function main() {
   );
 
   console.log(`\nDone. ${done} ready, ${failed} failed.`);
-  if (failed === 0) {
-    console.log('Now set USE_LOCAL_IMAGES = true in lib/utils.ts and restart the dev server.');
+
+  if (failed > 0) {
+    console.log('\nSome photos did not download, so the switch was left alone.');
+    console.log('Run this again — the ones already saved are skipped.');
+    return;
   }
+
+  // Flip the switch here rather than asking you to remember to do it. Leaving
+  // it off after a successful download is the whole cost of this script: every
+  // photo would still be pulled from Unsplash and re-encoded on the fly.
+  const utils = path.join(ROOT, 'lib', 'utils.ts');
+  const src = await readFile(utils, 'utf8');
+
+  if (/const USE_LOCAL_IMAGES = true/.test(src)) {
+    console.log('\nAll photos are local and USE_LOCAL_IMAGES is already true. Nothing to change.');
+    return;
+  }
+
+  if (!/const USE_LOCAL_IMAGES = false/.test(src)) {
+    console.log('\nCould not find USE_LOCAL_IMAGES in lib/utils.ts — set it to true by hand.');
+    return;
+  }
+
+  await writeFile(utils, src.replace('const USE_LOCAL_IMAGES = false', 'const USE_LOCAL_IMAGES = true'));
+  console.log('\nSet USE_LOCAL_IMAGES = true in lib/utils.ts.');
+  console.log('Every photo now comes from public/images instead of the Unsplash CDN.');
+  console.log('Run `npm run build`, then commit public/images and lib/utils.ts.');
 }
 
 main().catch((err) => {
